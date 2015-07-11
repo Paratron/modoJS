@@ -1,0 +1,48 @@
+.mdo-calendar {
+  .mdo-calendar-selector {
+    display: -moz-flex;
+    display: -webkit-flex;
+    display: flex;
+    -moz-flex-direction: row;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+
+    .mdo-calendar-label {
+      -moz-flex: 1 1 auto;
+      -webkit-flex: 1 1 auto;
+      flex: 1 1 auto;
+      text-align: center;
+    }
+  }
+
+  .mdo-calendar-field {
+    display: table;
+    width: 100%;
+  }
+  .mdo-calendar-field-row {
+    display: table-row;
+  }
+  .mdo-calendar-day {
+    cursor: pointer;
+    display: table-cell;
+    text-align: center;
+    width: 14.29%;
+    &:hover {
+      outline: #000 dashed 1px;
+    }
+  }
+  .mdo-calendar-day-disabled {
+    opacity: 0.5;
+    cursor: default;
+    &:hover {
+      outline: none;
+    }
+  }
+  .mdo-calendar-day-today {
+    font-weight: bold;
+  }
+
+  .mdo-calendar-day-selected {
+    outline: #f00 solid 1px;
+  }
+}

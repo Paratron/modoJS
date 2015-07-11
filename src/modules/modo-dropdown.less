@@ -1,0 +1,19 @@
+.mdo-dropdown {
+  position: relative;
+
+  .mdo-dropdown-button, .mdo-list-item {
+    cursor: pointer;
+  }
+
+  .mdo-dropdown-list {
+    display: none;
+    position: absolute;
+    top: 100%;
+  }
+
+  &.mdo-dropdown-dropped {
+    .mdo-dropdown-list {
+      display: block;
+    }
+  }
+}

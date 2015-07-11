@@ -1,0 +1,114 @@
+.mdo-popupbubble {
+    background: rgba(0, 0, 0, 0.8);
+    border: none;
+    text-shadow: none;
+    padding: 10px;
+    padding-bottom: 5px;
+    width: auto;
+    margin: auto;
+
+    &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 0;
+        height: 0;
+        border: none;
+    }
+
+    .mdo-label{
+        color: #ddd;
+    }
+}
+
+.mdo-popupbubble-attach {
+    &-br, &-bc, &-bl {
+        margin-top: 6px;
+
+        &:before {
+            top: -10px;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 10px solid rgba(0, 0, 0, 0.8);
+        }
+    }
+
+    &-bl, &-tl {
+        margin-left: 15px;
+
+        &:before {
+            right: 10px;
+        }
+    }
+
+    &-bc, &-tc {
+        &:before {
+            left: 50%;
+            margin-left: -10px;
+        }
+    }
+
+    &-br, &-tr {
+        margin-left: -15px;
+
+        &:before {
+            left: 10px;
+        }
+    }
+
+    &-tr, &-tc, &-tl {
+        margin-top: -6px;
+
+        &:before {
+            bottom: -10px;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid rgba(0, 0, 0, 0.8);
+        }
+    }
+
+    &-rt, &-rc, &-rb {
+        margin-left: 6px;
+
+        &:before {
+            left: -10px;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-right: 10px solid rgba(0, 0, 0, 0.8);
+        }
+    }
+
+    &-lt, &-lc, &-lb {
+        margin-left: -6px;
+
+        &:before {
+            right: -10px;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-left: 10px solid rgba(0, 0, 0, 0.8);
+        }
+    }
+
+    &-rt, &-lt {
+        margin-top: -15px;
+
+        &:before {
+            top: 10px;
+        }
+    }
+
+    &-rc, &-lc {
+        &:before {
+            top: 50%;
+            margin-top: -10px;
+        }
+    }
+
+    &-rb, &-lb {
+        margin-top: 15px;
+
+        &:before {
+            bottom: 10px;
+        }
+    }
+}

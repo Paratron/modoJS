@@ -1,0 +1,23 @@
+/**
+ * CREAM
+ * =====
+ * This theme is based upon Sergey Azovskiy's free "Cream UI Pack"
+ * which you can download from http://flexrs.me/portfolio/cream-ui-free/
+ *
+ * The Kit has been created to use as less images as possible and mimics the most effects with CSS3.
+ * A modern browser is required to render it properly.
+ *
+ * @author: Christian Engel <hello@wearekiss.com>
+ * @version: 1
+ */
+.mdo-root {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  color: #848484;
+  background: #f1efeb;
+}
+.mdo-disabled {
+  opacity: 0.6;
+}
+
+/* This beautiful CSS-File has been crafted with LESS (lesscss.org) and compiled by simpLESS (wearekiss.com/simpless) */

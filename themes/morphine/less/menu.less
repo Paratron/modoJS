@@ -1,0 +1,132 @@
+.mdo-menu {
+    .mdo-hotkey {
+        text-decoration: underline;
+    }
+
+    .mdo-selected {
+        border: #aecff7 solid 1px;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        -webkit-box-shadow: inset 0 0 1px #f7f7f9;
+        -moz-box-shadow: inset 0 0 1px #f7f7f9;
+        box-shadow: inset 0 0 1px #f7f7f9;
+        background-image: -webkit-linear-gradient(bottom, #e6edf6, #f1f3f6);
+        background-image: -moz-linear-gradient(bottom, #e6edf6, #f1f3f6);
+        background-image: -o-linear-gradient(bottom, #e6edf6, #f1f3f6);
+        background-image: -ms-linear-gradient(bottom, #e6edf6, #f1f3f6);
+        background-image: linear-gradient(to top, #e6edf6, #f1f3f6);
+
+        &:hover {
+            border: #aecff7 solid 1px;
+        }
+    }
+
+    .mdo-divider {
+        height: 8px;
+        position: relative;
+        padding-left: 1px;
+
+        &:before {
+            content: "";
+            display: inline-block;
+            height: 8px;
+            width: 0;
+            margin-left: 26px;
+            border-right: #fff solid 1px;
+            border-left: #eee solid 1px;
+            vertical-align: top;
+        }
+
+        &:after {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 4px;
+            right: 0;
+            left: 28px;
+            border: none;
+            height: 0;
+            border-top: #eee solid 1px;
+            border-bottom: #fff solid 1px;
+        }
+    }
+
+    .mdo-disabled {
+        background: transparent;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        opacity: 1;
+
+        .mdo-menu-item-label {
+            opacity: 0.5;
+        }
+    }
+
+    &-has-children {
+        &:after{
+            content: "▶";
+            position: absolute;
+            right: 5px;
+            font-size: 1.1em;
+            color: #333;
+        }
+    }
+}
+
+.mdo-menu-dropdown {
+    position: absolute;
+    background: #f8f8f8;
+    border: #ccc solid 1px;
+    padding: 1px;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+    z-index: 10000;
+    top: 100px;
+    left: 100px;
+}
+
+.mdo-menu-item {
+    display: block;
+    height: 23px;
+    line-height: 23px;
+    color: #222;
+    cursor: pointer;
+    border: #f8f8f8 solid 1px;
+
+    &:hover {
+        border: #f8f8f8 solid 1px;
+    }
+}
+
+.mdo-menu-item:last-child {
+    margin-bottom: 0;
+}
+
+.mdo-menu-item-field {
+    display: inline-block;
+    height: 23px;
+    width: 16px;
+    vertical-align: top;
+    padding: 0 5px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-right: #eee solid 1px;
+}
+
+.mdo-menu-item-info{
+    display: inline-block;
+    float: right;
+    margin-right: -6px;
+    color: #666;
+}
+
+.mdo-menu-item-label {
+    display: inline-block;
+    vertical-align: top;
+    padding: 0 5px;
+    border-left: #fff solid 1px;
+    min-width: 150px;
+    padding-right: 20px;
+    line-height: 24px;
+}
