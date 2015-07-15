@@ -44,6 +44,7 @@
 }
 .mdo-button,
 .mdo-dropdown-button {
+  display: inline-block;
   height: 25px;
   outline: none;
   -webkit-border-radius: 3px;
@@ -249,8 +250,9 @@
   background: #f0f0f0;
 }
 .mdo-popup {
+  position: absolute;
   width: 500px;
-  padding: 20px;
+  padding: 10px;
   background: #fff;
   top: 200px;
   left: 50%;
@@ -1113,4 +1115,319 @@
 .mdo-multipicker-menu .mdo-list-item:last-child,
 .mdo-container-layout-block .mdo-multipicker-menu .mdo-list-item:last-child {
   border-bottom: none;
+}
+.mdo-uploader {
+  display: inline-block;
+}
+.mdo-uploader-status {
+  display: inline-block;
+  height: 16px;
+  line-height: 16px;
+  vertical-align: middle;
+  margin-left: 10px;
+}
+.mdo-uploader.mdo-uploader-uploading form,
+.mdo-uploader.mdo-uploader-uploading .ulProbe {
+  display: none;
+}
+.mdo-uploader.mdo-uploader-uploading .mdo-uploader-status:before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  margin-right: 5px;
+  background: url(../img/mdo-uploader-loading-spin-dark.svg);
+  background-size: cover;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+}
+.mdo-uploader iframe {
+  display: none;
+}
+.mdo-uploader .mdo-uploader-button {
+  vertical-align: middle;
+  position: relative;
+  text-decoration: none;
+  line-height: 25px;
+  height: 25px;
+  overflow: hidden;
+}
+.mdo-uploader .mdo-uploader-button form,
+.mdo-uploader .mdo-uploader-button .ulProbe {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+.mdo-uploader .mdo-uploader-button .ulProbe {
+  font-size: 1000px;
+  outline: none;
+  opacity: 0;
+  background: transparent;
+}
+/**
+ * Helper Classes
+ * ==============
+ * Helper classes are additional CSS styles to be applied on certain elements
+ * to achieve new looks of the elements.
+ */
+.mdo-container.tme-padded-container {
+  padding: 10px;
+}
+.mdo-container.tme-application-header {
+  background-color: #dee0e1;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), inset 0 1px 1px #ffffff;
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), inset 0 1px 1px #ffffff;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), inset 0 1px 1px #ffffff;
+  border-bottom: solid 1px #838383;
+  background-image: -webkit-linear-gradient(bottom, rgba(200, 200, 200, 0.7), rgba(255, 255, 255, 0.7));
+  background-image: -moz-linear-gradient(bottom, rgba(200, 200, 200, 0.7), rgba(255, 255, 255, 0.7));
+  background-image: -o-linear-gradient(bottom, rgba(200, 200, 200, 0.7), rgba(255, 255, 255, 0.7));
+  background-image: linear-gradient(to top, rgba(200, 200, 200, 0.7), rgba(255, 255, 255, 0.7));
+  position: relative;
+  z-index: 1;
+  padding: 10px;
+}
+.mdo-container.tme-application-header .tme-headline {
+  border: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  top: 3px;
+}
+.mdo-container.tme-application-sidebar {
+  width: 250px;
+  min-width: 250px;
+  background: #fbfbfb;
+  border-right: 1px solid #acacac;
+}
+.mdo-container.tme-application-sidebar .tme-infobox {
+  background: rgba(204, 204, 204, 0.4);
+  border-left: #ccc solid 3px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+.mdo-label.tme-headline {
+  font-size: 22px;
+  color: #222;
+  font-weight: 500;
+  padding-bottom: 10px;
+  border-bottom: #aaa solid 1px;
+  margin-bottom: 20px;
+  margin-top: 30px;
+}
+.mdo-label.tme-headline.tme-first-headline {
+  margin-top: 0;
+}
+.mdo-label.tme-subheadline {
+  color: #4f4f4f;
+  font-weight: bold;
+  font-size: 14px;
+}
+.mdo-label.tme-infobox {
+  background: rgba(255, 255, 255, 0.4);
+  border-left: #666 solid 3px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+.mdo-togglegroup.tme-big .mdo-togglebutton {
+  font-size: 14px;
+  font-weight: bold;
+  padding: 0 14px;
+  height: 30px;
+}
+.mdo-togglegroup.tme-round .mdo-togglebutton:first-child {
+  border-radius: 20px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.mdo-togglegroup.tme-round .mdo-togglebutton:last-child {
+  border-radius: 20px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.mdo-dropdown {
+  vertical-align: baseline;
+  position: relative;
+  top: 1px;
+}
+.mdo-dropdown.tme-big .mdo-dropdown-button {
+  font-size: 14px;
+  font-weight: bold;
+  padding: 0 14px;
+  height: 30px;
+  padding-right: 35px;
+}
+.mdo-dropdown.tme-big .mdo-dropdown-button:after {
+  line-height: 30px;
+}
+.mdo-dropdown.tme-round .mdo-dropdown-button {
+  border-radius: 20px;
+}
+.mdo-dropdown.mdo-dropdown-dropped.tme-round .mdo-dropdown-list {
+  border-radius: 15px;
+}
+.mdo-button {
+  transform: all 0.5s;
+}
+.mdo-button.tme-round {
+  border-radius: 20px;
+}
+.mdo-button.tme-big {
+  font-size: 14px;
+  font-weight: bold;
+  padding: 0 14px;
+  height: 30px;
+}
+.mdo-button.tme-action {
+  transform: all 0.5s;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), inset 0 1px 1px #ffffff, inset 0 0 6px rgba(16, 168, 255, 0.75);
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), inset 0 1px 1px #ffffff, inset 0 0 6px rgba(16, 168, 255, 0.75);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), inset 0 1px 1px #ffffff, inset 0 0 6px rgba(16, 168, 255, 0.75);
+  border-color: #3c90e7;
+}
+.mdo-button.tme-error {
+  transform: all 0.5s;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), inset 0 1px 1px #ffffff, inset 0 0 6px rgba(255, 16, 16, 0.75);
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), inset 0 1px 1px #ffffff, inset 0 0 6px rgba(255, 16, 16, 0.75);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), inset 0 1px 1px #ffffff, inset 0 0 6px rgba(255, 16, 16, 0.75);
+  border-color: #ff514f;
+}
+.mdo-button.tme-warning {
+  transform: all 0.5s;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), inset 0 1px 1px #ffffff, inset 0 0 6px rgba(255, 145, 16, 0.75);
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), inset 0 1px 1px #ffffff, inset 0 0 6px rgba(255, 145, 16, 0.75);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), inset 0 1px 1px #ffffff, inset 0 0 6px rgba(255, 145, 16, 0.75);
+  border-color: #ff9d24;
+}
+.mdo-button.tme-success {
+  transform: all 0.5s;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), inset 0 1px 1px #ffffff, inset 0 0 6px rgba(106, 255, 16, 0.75);
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), inset 0 1px 1px #ffffff, inset 0 0 6px rgba(106, 255, 16, 0.75);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), inset 0 1px 1px #ffffff, inset 0 0 6px rgba(106, 255, 16, 0.75);
+  border-color: #58d42b;
+}
+.mdo-button.tme-icon {
+  line-height: 22px;
+}
+.mdo-button.tme-icon:before {
+  content: "";
+  display: inline-block;
+  width: 17px;
+  height: 17px;
+  vertical-align: middle;
+  margin-right: 5px;
+  position: relative;
+  top: -1px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.mdo-checkbox.tme-cross-check.mdo-checked .mdo-checkbox:before {
+  background-image: url(../img/checkbox-cross.png);
+}
+.mdo-checkbox.tme-dot-check.mdo-checked .mdo-checkbox:before {
+  background-image: url(../img/checkbox-dot.png);
+}
+.mdo-checkbox.tme-round .mdo-checkbox {
+  border-radius: 10px;
+  width: 16px;
+  height: 16px;
+  position: relative;
+  top: 3px;
+  left: -1px;
+}
+.mdo-checkbox.tme-round .mdo-checkbox:before {
+  top: 0;
+  left: 0;
+}
+.mdo-checkbox.tme-big .mdo-checkbox-label {
+  font-size: 14px;
+}
+.mdo-checkbox.tme-big .mdo-checkbox {
+  width: 20px;
+  height: 20px;
+  vertical-align: sub;
+}
+.mdo-checkbox.tme-big .mdo-checkbox:before {
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  background-image: url(../img/checkbox-tick-big.png);
+}
+.mdo-checkbox.tme-big.tme-round {
+  border-radius: 15px;
+}
+.mdo-checkbox.tme-big.tme-cross-check.mdo-checked .mdo-checkbox:before {
+  background-image: url(../img/checkbox-cross-big.png);
+}
+.mdo-checkbox.tme-big.tme-dot-check.mdo-checked .mdo-checkbox:before {
+  background-image: url(../img/checkbox-dot-big.png);
+}
+.mdo-image.tme-bordered {
+  border: #fff solid 5px;
+  background: #ccc;
+  box-shadow: 1px 1px 2px #aaa;
+}
+.mdo-image.tme-round {
+  border-radius: 1000px;
+}
+.mdo-popup .tme-infobox {
+  width: 250px;
+  min-width: 250px;
+  background: #fbfbfb;
+  border-right: 1px solid #acacac;
+}
+.mdo-popup .tme-infobox .tme-infobox {
+  background: rgba(204, 204, 204, 0.4);
+  border-left: #ccc solid 3px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+.mdo-popup .tme-header {
+  background-color: #dee0e1;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), inset 0 1px 1px #ffffff;
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), inset 0 1px 1px #ffffff;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), inset 0 1px 1px #ffffff;
+  border-bottom: solid 1px #838383;
+  background-image: -webkit-linear-gradient(bottom, rgba(200, 200, 200, 0.7), rgba(255, 255, 255, 0.7));
+  background-image: -moz-linear-gradient(bottom, rgba(200, 200, 200, 0.7), rgba(255, 255, 255, 0.7));
+  background-image: -o-linear-gradient(bottom, rgba(200, 200, 200, 0.7), rgba(255, 255, 255, 0.7));
+  background-image: linear-gradient(to top, rgba(200, 200, 200, 0.7), rgba(255, 255, 255, 0.7));
+  position: relative;
+  z-index: 1;
+  padding: 10px;
+  margin: -10px;
+  margin-bottom: 10px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+.mdo-popup .tme-header .tme-headline {
+  border: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  top: 3px;
+}
+.mdo-popup .tme-header .tme-title {
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 18px;
+  margin: 0;
+  padding: 0;
+}
+.mdo-popup .tme-header .tme-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  margin: 0;
+}
+.mdo-popup .tme-header .tme-close:before {
+  content: "×";
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 18px;
 }

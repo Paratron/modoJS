@@ -270,7 +270,7 @@
 		},
 
 		/**
-		 * This outputs a string with a formatted date and follows roughly the PHP date() specification.
+		 * This outputs a string with a formatted date and follows the PHP date() specification.
 		 * See: http://de2.php.net/manual/en/function.date.php
 		 * @param {String} format
 		 * @param {Date} inDate (optional)

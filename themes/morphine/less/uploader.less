@@ -1,0 +1,58 @@
+.mdo-uploader {
+    display: inline-block;
+
+    &-status {
+        display: inline-block;
+        height: 16px;
+        line-height: 16px;
+        vertical-align: middle;
+      margin-left: 10px;
+    }
+
+    &.mdo-uploader-uploading {
+        form, .ulProbe{
+            display: none;
+        }
+
+        .mdo-uploader-status {
+            &:before {
+                content: "";
+                width: 16px;
+                height: 16px;
+                display: inline-block;
+                margin-right: 5px;
+                background: url(../img/mdo-uploader-loading-spin-dark.svg);
+                background-size: cover;
+                vertical-align: middle;
+                position: relative;
+                top: -1px;
+            }
+        }
+    }
+
+    iframe {
+        display: none;
+    }
+
+    .mdo-uploader-button {
+        vertical-align: middle;
+        position: relative;
+        text-decoration: none;
+        line-height: 25px;
+        height: 25px;
+        overflow: hidden;
+
+        form, .ulProbe {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+
+        .ulProbe {
+            font-size: 1000px;
+            outline: none;
+            opacity: 0;
+            background: transparent;
+        }
+    }
+}

@@ -9,113 +9,144 @@ conf:{
 #modo.dateFormatter
 
 The dateFormatter object is no creatable element, but attaches itself to the modo core.
-It adds methods to the modo core to display times and dates in different formats.
+It adds methods to the modo core to display times and dates in different formats. It can automatically
+correct time offsets across different timezones as well.
+
+The dateFormatter is fully internationalizable - just overwrite the object properties that
+ contain the strings dates are constructed from to make dates appear in your locale flavor.
+
+_Pro tip:_ Simply create an object (maybe in a JSON file) that contains your localized properties
+and overwrite the original dateFormatter language properties by using underscores extend method: 
+
+    _.extend(modo.dateFormatter, myLocalizedObj);
 
 __Heads up:__ This is not a element constructor!
 
 ##Properties
 |importmarker:properties|
-###keymap:Object {.property}
-The keymap object stores the relations between key names in human language and and javascript keycodes.
-The keymap object contains keymaps for different languages, since keyboard layouts differ from country to country.
-The keymap is picked through `navigator.language`.
+###MONTH_NAMES:Array {.property}
+Array of fully written month names. Defaults to:
 
-###lastKey:String {.property}
-Contains the last pressed key.
+    ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'] 
 
-###isScoped:Boolean {.property}
-Contains information about if the keyListener currently runs in scoped mode or not.
+###MONTH_NAMES_SHORT:Array {.property}
+Array of short month names. Defaults to: 
+
+    ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+###DAY_NAMES:Array {.property}
+Array of fully written day names. Defaults to:
+
+    ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+
+###DAY_NAMES_SHORT:Array {.property}
+Array of short day names. Defaults to:
+
+    ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+
+###SUFFIX:Array {.property}
+A suffix string to be appended in some cases. Defaults to:
+
+    ['st', 'nd', 'rd', 'th']
+ 
+###TODAY:String {.property}
+String that represents the word "today". Defaults to `today`.
+
+###YESTERDAY:String {.property}
+String that represents the word "yesterday". Defaults to `yesterday`.
+
+###LAST:String {.property}
+Micro-Template string for outputs of the `dateToFancyString()` method like "last week" or "last month". Defaults to `last %v`. `%v` is being replaced in that string.
+
+###FUZZY_SECONDS:String {.property}
+String that represents a very short timespan. May be returned by `dateToFancyString()`. Defaults to `about a minute ago`.
+
+###NEVER:String {.property}
+String that represents a time that has never been there. Usually expression for the unix time `0`.
+
+###REL_UNITS:Array {.property}
+Array of time units to be used by different methods. Defaults to:
+
+    ['seconds', 'minutes', 'hours', 'days', 'weeks', 'months', 'years']
+
+###REL_PAST:String {.property}
+Micro-Template string for outputs of the `dateToFancyString()` method like "20 seconds ago". Defaults to `%v %u ago`. `%v` is being replaced by the value, `%u` is being replaced by the unit.
+
+###REL_FUTURE:String {.property}
+Micro-Template string for outputs of the `dateToFancyString()` method like "in 10 minutes". Defaults to `in %v %u`. `%v` is being replaced by the value, `%u` is being replaced by the unit.
+
+###REL_CURRENT:String {.property}
+String that represents the current moment in time. Defaults to `right now`.
+
+###DEFAULT_FORMAT:String {.property}
+String that represents the default output format for a full date, if `dateToFancyString()` notices a difference to now that is greater
+than one week. Defaults to: `F jS, Y` (renders to: "April 5th, 2015").
+
+###LOCAL_TIMEZONE:Integer {.property}
+Automatically set timezone offset. This is the UTC offset in hours, the USER uses on his side.
+
+###REMOTE_TIMEZONE:Integer {.property}
+Automatically set timezone offset. This is the UTC offset in hours, the SERVER uses on his side. Defaults
+to the same timezone as the user, so no corrections are made. Set this to the servers real timezone to 
+make the library automatically correct all time output while `normalizeTimezones` is set to `true`.
+
+###normalizeTimezones:Boolean {.property}
+Should the library automatically correct time outputs from remote timezone to local timezone? Defaults to `true`.
 
 |endimportmarker:properties|
 
 ##Methods
 |importmarker:methods|
-###dateToFancyString(inDate, dateFormat) {.method}
-Enables the keyListener. It won't listen for, or capture keyboard events before this method is called.
-Calling it multiple times has no effect. So you may call it from every application module that needs the keyListener.
+###convertTimezone(inDate, toOffset, fromOffset):Date {.method}
+Takes a date or timestamp and converts it to another timezone.
 
-###disable() {.method}
-This method disables the keyListener. No more keyboard events will be triggered until `enable()` is called again.
+###dateToFancyString(inDate, dateFormat, options):String {.method}
+Takes a date object or timestamp and will return a "fancy" string representation which is most pleasant for users to read. Dates that
+are more than 7 days away from the current time will be rendered as a "full" date using the `DEFAULT_FORMAT` property.
 
-###isPressed(key) {.method}
-Returns `true`, when the given key is currently pressed.
-`key` can either be the keys name, or its index.
+Example output:
 
-###setScope(scope) {.method}
-Will shift the current event scope to the submitted namespace.
-Can be called multiple times - if a later scope is being released, the scope switches back to the
-previous state until no more scopes are active.
+- 10 minutes ago
+- Today, 11:15
+- Yesterday, 22:00
+- Last tuesday
 
-[[
-    ["Function parameter", "Description"],
-    ["scope", "Either of type `modo.*` or `String`"]
-]]
+The following properties can be passed into the method in the `options` object to overwrite the classes default settings:
 
-###releaseScope(scope) {.method}
-Removes a scope from the scopes list.
-If it was the last submitted scope, the scope pointer will switch back to the previously submitted scope.
+    {
+        normalizeTimezone: true,
+        localTimezone: -2,
+        remoteTimezone: 2
+    }
+    
+###dateToRelativeString(datePast, dateNow, options):String {.method}
+This creates a "relative" string, as used often in applications and social networks.
+Instead of printing out the precise datetime, it comparing the two dates and produces outputs like "x minutes ago".
 
-[[
-    ["Function parameter", "Description"],
-    ["scope", "Either of type `modo.*` or `String`"]
-]]
+Also works into the future.
 
-###onScoped(scope, eventName, callback, [context]) {.method}
-Wrapper method for the "on" method, to bind to scoped events.
-Read more about [Backbone.Events.on()](http://backbonejs.org/#Events-on)
+Example output:
 
-[[
-    ["Function parameter", "Description"],
-    ["scope", "Either of type `modo.*` or `String`"],
-    ["eventName", "A string, specifying the event to listen to"],
-    ["callback", "The function to call when the event is triggered"],
-    ["context", "Optional context for the callback function"]
-]]
+- 10 minutes ago
+- In 2 weeks
+- 3 years ago
 
-###offScoped(scope, eventName, callback, context) {.method}
-Wrapper method for the "off" method, to unbind scoped events.
-Read more about [Backbone.Events.off()](http://backbonejs.org/#Events-off)
+The following properties can be passed into the method in the `options` object to overwrite the classes default settings:
+
+    {
+        normalizeTimezone: true,
+        localTimezone: -2,
+        remoteTimezone: 2
+    }
+
+###dateToString(format, inDate, options):String {.method}
+This outputs a string with a formatted date and follows the [PHP date() specification](http://de2.php.net/manual/en/function.date.php).
+
+The following properties can be passed into the method in the `options` object to overwrite the classes default settings:
+
+    {
+        normalizeTimezone: true,
+        localTimezone: -2,
+        remoteTimezone: 2
+    }
 |endimportmarker:methods|
-
-##Events
-|importmarker:events|
-###stroke {.event}
-Will be triggered when a key-stroke (combination of keys) has been pressed.
-[[
-    ["Event Parameter", "Description"],
-    ["keyboardEvent", "The original keyboard event object"],
-    ["strokeName", "A string representation of the pressed keystroke"]
-]]
-The stroke name is created like this:
-
-    [ctrl+][shift[+]][alt]+keyName
-
-So for example: `ctrl+u` or `alt+f` or even `ctrl+shift+z`.
-
-
-###[keyname] {.event}
-You can listen to specific keys directly, like so:
-
-    modo.keyListener.on('u', function(e){});
-
-The event will be triggered, when the specified key has been pressed.
-
-__Special key names are:__
-backspace, tab, enter, shift, ctrl, alt, pause, capslock, escape, space, pageup, pagedown,
-end, home, left, up, right, down, insert, delete, f1-f12, numlock, scrolllock
-
-[[
-    ["Event Parameter", "Description"],
-    ["keyboardEvent", "The original keyboard event object"],
-    ["keyName", "The name of the pressed key as string"]
-]]
-
-###keyPress {.event}
-This event is triggered on _every_ key press. The name of the pressed key is submitted as an event attribute.
-
-[[
-    ["Event Parameter", "Description"],
-    ["keyboardEvent", "The original keyboard event object"],
-    ["keyName", "The name of the pressed key as string"]
-]]
-|endimportmarker:events|

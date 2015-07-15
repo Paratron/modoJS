@@ -1,0 +1,322 @@
+/**
+ * Helper Classes
+ * ==============
+ * Helper classes are additional CSS styles to be applied on certain elements
+ * to achieve new looks of the elements.
+ */
+
+.mdo-container {
+
+    &.tme-padded-container {
+        padding: 10px;
+    }
+
+    //Full width application header bar
+    &.tme-application-header {
+        background-color: #dee0e1;
+        -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .15), inset 0 1px 1px #fff;
+        -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, .15), inset 0 1px 1px #fff;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, .15), inset 0 1px 1px #fff;
+        border-bottom: solid 1px #838383;
+        background-image: -webkit-linear-gradient(bottom, rgba(200, 200, 200, .7), rgba(255, 255, 255, .7));
+        background-image: -moz-linear-gradient(bottom, rgba(200, 200, 200, .7), rgba(255, 255, 255, .7));
+        background-image: -o-linear-gradient(bottom, rgba(200, 200, 200, .7), rgba(255, 255, 255, .7));
+        background-image: linear-gradient(to top, rgba(200, 200, 200, .7), rgba(255, 255, 255, .7));
+        position: relative;
+        z-index: 1;
+        padding: 10px;
+
+        .tme-headline {
+            border: none;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            top: 3px;
+        }
+    }
+
+    &.tme-application-sidebar {
+        width: 250px;
+        min-width: 250px;
+        background: #fbfbfb;
+        border-right: 1px solid #acacac;
+
+        .tme-infobox {
+            background: rgba(204, 204, 204, .4);
+            border-left: #ccc solid 3px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+    }
+}
+
+.mdo-label {
+    &.tme-headline {
+        font-size: 22px;
+        color: #222;
+        font-weight: 500;
+        padding-bottom: 10px;
+        border-bottom: #aaa solid 1px;
+        margin-bottom: 20px;
+        margin-top: 30px;
+
+        &.tme-first-headline {
+            margin-top: 0;
+        }
+    }
+
+    &.tme-subheadline {
+        color: #4f4f4f;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    &.tme-infobox {
+        background: rgba(255, 255, 255, 0.40);
+        border-left: #666 solid 3px;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+}
+
+.mdo-togglegroup {
+    &.tme-big {
+        .mdo-togglebutton {
+            .mdo-button.tme-big;
+        }
+    }
+
+    &.tme-round {
+        .mdo-togglebutton {
+            &:first-child {
+                .mdo-button.tme-round;
+
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+
+            &:last-child {
+                .mdo-button.tme-round;
+
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+            }
+        }
+    }
+}
+
+.mdo-dropdown {
+    vertical-align: baseline;
+    position: relative;
+    top: 1px;
+
+    &.tme-big {
+        .mdo-dropdown-button {
+            .mdo-button.tme-big;
+
+            padding-right: 35px;
+
+            &:after {
+                line-height: 30px;
+            }
+        }
+    }
+
+    &.tme-round {
+        .mdo-dropdown-button {
+            .mdo-button.tme-round;
+
+        }
+    }
+
+    &.mdo-dropdown-dropped {
+        &.tme-round {
+            .mdo-dropdown-list {
+                border-radius: 15px;
+            }
+        }
+    }
+}
+
+.mdo-button {
+    transform: all 0.5s;
+
+    &.tme-round {
+        border-radius: 20px;
+    }
+
+    &.tme-big {
+        font-size: 14px;
+        font-weight: bold;
+        padding: 0 14px;
+        height: 30px;
+    }
+
+    &.tme-action {
+        transform: all 0.5s;
+        -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), inset 0 1px 1px #fff, inset 0 0 6px rgba(16, 168, 255, .75);
+        -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), inset 0 1px 1px #fff, inset 0 0 6px rgba(16, 168, 255, .75);
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), inset 0 1px 1px #fff, inset 0 0 6px rgba(16, 168, 255, .75);
+        border-color: #3c90e7;
+    }
+
+    &.tme-error {
+        transform: all 0.5s;
+        -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), inset 0 1px 1px #fff, inset 0 0 6px rgba(255, 16, 16, .75);
+        -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), inset 0 1px 1px #fff, inset 0 0 6px rgba(255, 16, 16, .75);
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), inset 0 1px 1px #fff, inset 0 0 6px rgba(255, 16, 16, .75);
+        border-color: #ff514f;
+    }
+
+    &.tme-warning {
+        transform: all 0.5s;
+        -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), inset 0 1px 1px #fff, inset 0 0 6px rgba(255, 145, 16, .75);
+        -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), inset 0 1px 1px #fff, inset 0 0 6px rgba(255, 145, 16, .75);
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), inset 0 1px 1px #fff, inset 0 0 6px rgba(255, 145, 16, .75);
+        border-color: #ff9d24;
+    }
+
+    &.tme-success {
+        transform: all 0.5s;
+        -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), inset 0 1px 1px #fff, inset 0 0 6px rgba(106, 255, 16, .75);
+        -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), inset 0 1px 1px #fff, inset 0 0 6px rgba(106, 255, 16, .75);
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), inset 0 1px 1px #fff, inset 0 0 6px rgba(106, 255, 16, .75);
+        border-color: #58d42b;
+    }
+
+    &.tme-icon {
+        line-height: 22px;
+
+        &:before {
+            content: "";
+            display: inline-block;
+            width: 17px;
+            height: 17px;
+            vertical-align: middle;
+            margin-right: 5px;
+            position: relative;
+            top: -1px;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    }
+}
+
+.mdo-checkbox {
+    &.tme-cross-check {
+        &.mdo-checked .mdo-checkbox:before {
+            background-image: url(../img/checkbox-cross.png)
+        }
+    }
+
+    &.tme-dot-check {
+        &.mdo-checked .mdo-checkbox:before {
+            background-image: url(../img/checkbox-dot.png)
+        }
+    }
+
+    &.tme-round {
+        .mdo-checkbox {
+            border-radius: 10px;
+            width: 16px;
+            height: 16px;
+            position: relative;
+            top: 3px;
+            left: -1px;
+
+            &:before {
+                top: 0;
+                left: 0;
+            }
+        }
+    }
+
+    &.tme-big {
+        .mdo-checkbox-label {
+            font-size: 14px;
+        }
+
+        .mdo-checkbox {
+            width: 20px;
+            height: 20px;
+            vertical-align: sub;
+
+            &:before {
+                top: 0;
+                left: 0;
+                width: 20px;
+                height: 20px;
+                background-image: url(../img/checkbox-tick-big.png);
+            }
+        }
+
+        &.tme-round {
+            border-radius: 15px;
+        }
+
+        &.tme-cross-check {
+            &.mdo-checked .mdo-checkbox:before {
+                background-image: url(../img/checkbox-cross-big.png)
+            }
+        }
+
+        &.tme-dot-check {
+            &.mdo-checked .mdo-checkbox:before {
+                background-image: url(../img/checkbox-dot-big.png)
+            }
+        }
+    }
+}
+
+.mdo-image{
+    &.tme-bordered{
+        border: #fff solid 5px;
+        background: #ccc;
+        box-shadow: 1px 1px 2px #aaa;
+    }
+
+    &.tme-round{
+        border-radius: 1000px;
+    }
+}
+
+.mdo-popup{
+    .tme-infobox{
+        .mdo-container.tme-application-sidebar.tme-infobox;
+    }
+
+    .tme-header{
+        .mdo-container.tme-application-header;
+
+        margin: -10px;
+        margin-bottom: 10px;
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+
+        .tme-title{
+            font-size: 14px;
+            font-weight: bold;
+
+            line-height: 18px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .tme-close{
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 20px;
+            height: 20px;
+            padding: 0;
+            margin: 0;
+
+            &:before{
+                content: "×";
+                font-size: 20px;
+                font-weight: bold;
+                line-height: 18px;
+            }
+        }
+    }
+}
