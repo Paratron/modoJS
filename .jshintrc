@@ -13,13 +13,13 @@
     "latedef": true,
     "newcap": true,
     "noarg": true,
-    "predef": [
-        "_",
-        "Backbone",
-        "define",
-        "modo",
-        "exports:true"
-    ],
+    "globals": {
+        "_": false,
+        "Backbone": false,
+        "define": false,
+        "modo": false,
+        "exports": true
+    },
     "quotmark": "single",
     "regexp": true,
     "undef": true,

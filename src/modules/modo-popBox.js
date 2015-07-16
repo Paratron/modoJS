@@ -73,7 +73,7 @@
 								hidden: true,
 								ref: 'txtInput',
 								on: {
-									"keydown:enter": function (){
+									'keydown:enter': function (){
 										ui.deferred.resolve(this.get());
 										ui.window.close();
 									}
@@ -137,8 +137,8 @@
 
 		ui.lblTitle.set(params.title);
 		ui.lblMessage.set(!params.message ? params : params.message.replace(/\n/g, '<br>'));
-		ui.btnConfirm.el.text(params.btnConfirm || btnSuccess);
-		ui.btnCancel.el.text(params.btnCancel || btnCancel).focus();
+		ui.btnConfirm.setLabel(params.btnConfirm || btnSuccess);
+		ui.btnCancel.setLabel(params.btnCancel || btnCancel).focus();
 		ui.window.open();
 
 		ui.window.on('close', function (){

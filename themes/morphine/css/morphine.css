@@ -47,6 +47,7 @@
   display: inline-block;
   height: 25px;
   outline: none;
+  cursor: pointer;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
@@ -64,6 +65,7 @@
   color: #575757;
   text-shadow: 0 1px rgba(255, 255, 255, 0.7);
   margin: 5px 0;
+  margin-right: 10px;
   padding: 0 8px;
 }
 .mdo-button:hover,
@@ -1165,6 +1167,11 @@
   opacity: 0;
   background: transparent;
 }
+.mdo-popup.mdo-popbox .tme-infobox {
+  border: none;
+  background: transparent;
+  padding: 0;
+}
 /**
  * Helper Classes
  * ==============
@@ -1430,4 +1437,11 @@
   font-size: 20px;
   font-weight: bold;
   line-height: 18px;
+}
+.mdo-popup .tme-footer {
+  border-top: #ccc solid 1px;
+  padding: 10px;
+  margin: -10px;
+  margin-top: 10px;
+  text-align: right;
 }
