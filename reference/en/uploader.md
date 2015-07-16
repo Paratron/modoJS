@@ -90,10 +90,10 @@ The first event parameter is a [list](https://developer.mozilla.org/de/docs/Web/
 ###clear {.event}
 Triggered, when the users file selection has been cleared through the call of `clear()`.
 
-###upload:start {.event}
+###upload&#58;start {.event}
 Triggered when the upload has begun.
 
-###upload:progress {.event}
+###upload&#58;progress {.event}
 Triggered whenever a progress has been made on the file upload. Only being triggered if the element
 has been created passing `ajax = true` to the constructor.
 
@@ -105,12 +105,12 @@ The event parameter is an object containing information about the upload progres
         percent: 65.6492214844 //calculated percentage of the file upload
     }
 
-###upload:finish {.event}
+###upload&#58;finish {.event}
 Triggered when the uploader is done sending the file(s) to the server.
 
 The first event parameter is the response text, received from the server.
 
-###upload:error {.event}
+###upload&#58;error {.event}
 Triggered when an error has occured while sending the files. Only being triggered if the element
 has been created passing `ajax = true` to the constructor.
 
