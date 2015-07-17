@@ -58,6 +58,9 @@
 				that._editor.getSession().setMode('ace/mode/' + (that._params.mode || 'html'));
 				that._editor.getSession().setUseWrapMode(true);
 				that._editor.setShowPrintMargin(false);
+				that._editor.on('change', function(){
+					that.trigger('change');
+				});
 
 				that.on('show', function (){
 					that._editor.resize(true);
