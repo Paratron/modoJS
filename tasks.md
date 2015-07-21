@@ -5,7 +5,6 @@ ModoJS Tasks and Ideas
 - [ ] Make Lists manually sortable
 - [ ] Make Popups draggable
 - [ ] Improve skipping through elements with TAB key
-
 - [ ] Events for grid element
 - [ ] Sorting for grid element
 - [ ] Flow Player Element

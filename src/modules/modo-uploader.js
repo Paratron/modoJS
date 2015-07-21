@@ -114,14 +114,14 @@
 					that.removeClass(cn(3, true)); //Uploading
 					that.el.find('.' + cn(1)).removeClass(modoCore.cssPrefix + modoCore.Element.classNames[2]); //disabled
 					that.clear({silent: true});
-					that.trigger('upload:finish', e.responseText);
+					that.trigger('upload:finish', e.target.responseText);
 
 				}, false);
 				xhr.addEventListener('error', function (e) {
 					that.removeClass(cn(3, true)); //Uploading
 					that.el.find('.' + cn(1)).removeClass(modoCore.cssPrefix + modoCore.Element.classNames[2]); //disabled
 					that.clear({silent: true});
-					that.trigger('upload:error', e.responseText);
+					that.trigger('upload:error', e.target.responseText);
 				});
 				xhr.open('POST', that._settings.target, true);
 				xhr.send(formData);
