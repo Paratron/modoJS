@@ -4079,13 +4079,13 @@
 			calculatePosition(_this, settings);
 			setTimeout(function (){
 				if(settings.autoHide){
-					$('body').one('click', closer);
+					$(window).one('click', closer);
 				}
 			}, 1);
 		});
 
 		this.on('close', function (){
-			$('body').off('click', closer);
+			$(window).off('click', closer);
 		});
 
 		modoCore._stat('PopUpBubble');
