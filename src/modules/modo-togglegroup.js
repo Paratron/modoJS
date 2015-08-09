@@ -206,6 +206,10 @@
 
 			silent = options.silent;
 
+			if(typeof key === 'number'){
+				key = String(key);
+			}
+
 			if(key === null && this._untoggle){
 				if(selectedKey){
 					this.elements[selectedKey].set(false);

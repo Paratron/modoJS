@@ -5,6 +5,7 @@ with the modo docs. Please add the most recent changes on top of this file.
 
 ###Version 1.1.2 ()
 - Fixed a bug that prevented change events in [modo.AceEditor](../reference/aceeditor)
+- Fixed a bug in [modo.ToggleGroup](../reference/togglegroup) which prevented setting items with numeric keys
 
 ###Version 1.1.1 (July 16th 2015)
 
