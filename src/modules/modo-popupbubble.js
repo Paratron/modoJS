@@ -192,7 +192,6 @@
 			setTimeout(function () {
 				if (settings.autoHide) {
 					_this.el.on('click', function (e) {
-						e.preventDefault();
 						e.stopPropagation();
 					});
 					$(window).on('click', closer);
