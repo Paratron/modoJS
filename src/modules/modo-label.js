@@ -82,7 +82,7 @@
 		};
 
 		if(params.model){
-			this.bindToModel(params.model, params.modelKey, (typeof params.value === 'function') ? params.value : null, true);
+			this.bindToModel(params.model, params.modelKey, (typeof params.value === 'function') ? params.value : null);
 		}
 
 		this.el.html(typeof params.value !== 'function' ? params.value || '' : '');
