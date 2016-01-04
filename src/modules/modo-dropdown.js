@@ -128,6 +128,10 @@
 		this.selectedData = null;
 		this.length = dropList.length;
 
+		this.update = function(){
+			dropList.update();
+		};
+
 		/**
 		 * This will set the dropdown to a specific item from the dataset.
 		 * If you passed a array as data, pass an array index as item.

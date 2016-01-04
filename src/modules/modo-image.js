@@ -104,7 +104,7 @@
 	} else {
 		if(typeof define === 'function'){
 			//AMD modularization
-			define(function (){
+			define('modo.Image', function (){
 				return modoCore.Image;
 			});
 		}

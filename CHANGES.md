@@ -3,9 +3,14 @@
 This file contains the most recent changes to the library and will be merged
 with the modo docs. Please add the most recent changes on top of this file.
 
-###Version 1.1.2 ()
+###Version 1.1.3 (January 4th 2016)
+- Fixed some bugs with requireJS
+- Fixed other stuff
+
+###Version 1.1.2 (August 12th 2015)
 - Fixed a bug that prevented change events in [modo.AceEditor](../reference/aceeditor)
 - Fixed a bug in [modo.ToggleGroup](../reference/togglegroup) which prevented setting items with numeric keys
+- Fixed a bug in [modo.DropDown(../reference/dropdown) which prevented models from collections to be selected
 
 ###Version 1.1.1 (July 16th 2015)
 

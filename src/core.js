@@ -756,7 +756,7 @@
 	_.extend(modo, Backbone.Events);
 
 	if(typeof define === 'function' && define.amd){
-		define(function (){
+		define('modo', function (){
 			return modo;
 		});
 	}

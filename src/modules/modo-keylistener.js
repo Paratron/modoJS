@@ -482,7 +482,7 @@
 	} else {
 		if(typeof define === 'function'){
 			//AMD modularization
-			define(function (){
+			define('modo.keyListener', function (){
 				return modoCore.keyListener;
 			});
 		}

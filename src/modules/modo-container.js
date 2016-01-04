@@ -134,7 +134,7 @@
     } else {
         if(typeof define === 'function'){
             //AMD modularization
-            define(function (){
+            define('modo.Container', function (){
                 return modo.Container;
             });
         }

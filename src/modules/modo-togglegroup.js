@@ -98,7 +98,7 @@
 				e = elements[key];
 
 				if(modo.isElement(e)){
-					if(!e instanceof modo.ToggleButton){
+					if(!(e instanceof modo.ToggleButton)){
 						throw new Error('Only Modo elements of type ToggleButton can be added to a ToggleGroup.');
 					} else {
 						e.lock();
@@ -312,7 +312,7 @@
 	} else {
 		if(typeof define === 'function'){
 			//AMD modularization
-			define(function (){
+			define('modo.ToggleGroup', function (){
 				return modoCore.ToggleGroup;
 			});
 		}

@@ -394,7 +394,7 @@
 	} else {
 		if(typeof define === 'function'){
 			//AMD modularization
-			define(function (){
+			define('modo.dateFormatter', function (){
 				return modoCore.dateFormatter;
 			});
 		}

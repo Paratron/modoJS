@@ -362,7 +362,7 @@
 	} else {
 		if(typeof define === 'function'){
 			//AMD modularization
-			define(function (){
+			define('modo.InputText', function (){
 				return modoCore.InputText;
 			});
 		}
