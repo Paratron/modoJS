@@ -5002,7 +5002,9 @@
 			this.$checkbox = $('<span class="' + cn(0) + '"></span>');
 		}
 
-		this.el.append(this.$checkbox, $('<span class="' + cn(1) + '">' + (params.label || '') + '</span>'));
+        this.$label = $('<span class="' + cn(1) + '">' + (params.label || '') + '</span>');
+
+		this.el.append(this.$checkbox, this.$label);
 
 		this.value = false;
 
@@ -5111,7 +5113,10 @@
 			},
 			get: function (){
 				return this.value;
-			}
+			},
+            setLabel: function(newLabel){
+                this.$label.html(newLabel);
+            }
 		});
 
 	if(typeof exports !== 'undefined'){

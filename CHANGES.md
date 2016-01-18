@@ -5,6 +5,8 @@ with the modo docs. Please add the most recent changes on top of this file.
 
 ###Version 1.1.3 (January 4th 2016)
 - Fixed some bugs with requireJS
+- Fixed stuff in the uploader for older IE versions.
+- Added the ´setLabel()´ method to the Checkbox element.
 - Fixed other stuff
 
 ###Version 1.1.2 (August 12th 2015)
