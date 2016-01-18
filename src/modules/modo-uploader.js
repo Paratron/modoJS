@@ -49,7 +49,7 @@
 
 		this.enabled = true;
 
-		var html = '<a href="#" class="' + (modoCore.cssPrefix + modoCore.Button.classNames[0]) + ' ' + cn(1) + '">' + (params.label || 'Upload');
+		var html = '<a href="#ulTarget-' + this.modoId + '" class="' + (modoCore.cssPrefix + modoCore.Button.classNames[0]) + ' ' + cn(1) + '">' + (params.label || 'Upload');
 
 		html += '<form action="' + this._settings.target + '" target="ulTarget-' + this.modoId + '" enctype="multipart/form-data" method="post" class="ulForm"><input accept="' + this._settings.mimeFilter + '" class="ulProbe" type="file' + (params.multiple ? '[]' : '') + '" name="file"></form>';
 
@@ -89,7 +89,7 @@
 					that.trigger('upload:finish', response);
 					that.clear({silent: true});
 				});
-				that.el.find('form').submit();
+				that.el.find('form').attr('action', that._settings.target).submit();
 				that.addClass(cn(3, true)); //Uploading
 				that.el.find('.' + cn(1)).addClass(modoCore.cssPrefix + modoCore.Element.classNames[2]); //disabled
 				that.trigger('upload:start');
