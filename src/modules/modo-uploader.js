@@ -51,7 +51,7 @@
 
 		var html = '<a href="#ulTarget-' + this.modoId + '" class="' + (modoCore.cssPrefix + modoCore.Button.classNames[0]) + ' ' + cn(1) + '">' + (params.label || 'Upload');
 
-		html += '<form action="' + this._settings.target + '" target="ulTarget-' + this.modoId + '" enctype="multipart/form-data" method="post" class="ulForm"><input accept="' + this._settings.mimeFilter + '" class="ulProbe" type="file' + (params.multiple ? '[]' : '') + '" name="file"></form>';
+		html += '<form action="" ' + (params.multiple ? 'multiple ' : '') + 'target="ulTarget-' + this.modoId + '" enctype="multipart/form-data" method="post" class="ulForm"><input accept="' + this._settings.mimeFilter + '" class="ulProbe" type="file" name="file""></form>';
 
 		html += '</a><span class="' + cn(2) + '"></span>';
 
@@ -81,7 +81,15 @@
 			if(!that.enabled){
 				return;
 			}
+
+            var url = that._settings.target;
+
+            if(typeof url === 'function'){
+                url = url();
+            }
+
 			if (!that._settings.ajax) {
+                that.el.find('form').attr('action', url);
 				that.el.find('iframe').one('load', function () {
 					var response = $(this.contentWindow.document.body).text();
 					that.removeClass(cn(3, true)); //Uploading
@@ -123,7 +131,7 @@
 					that.clear({silent: true});
 					that.trigger('upload:error', e.target.responseText);
 				});
-				xhr.open('POST', that._settings.target, true);
+				xhr.open('POST', url, true);
 				xhr.send(formData);
 				that.addClass(cn(3, true)); //Uploading
 				that.el.find('.' + cn(1)).addClass(modoCore.cssPrefix + modoCore.Element.classNames[2]); //disabled
@@ -183,7 +191,6 @@
 			 * @param url
 			 */
 			setTarget: function (url) {
-				this.el.find('iframe').attr('target', url);
 				this._settings.target = url;
 				return this;
 			},
