@@ -2904,7 +2904,7 @@
 				internal.maskOwnerStack.push(internal.maskOwner);
 			}
 			internal.mask[0].style.zIndex = modal.el[0].style.zIndex - 1;
-			internal.mask.fadeIn();
+			internal.mask.stop().fadeIn();
 			internal.maskOwner = [modal, settings];
 		},
 		hideMask: function (){
@@ -2913,7 +2913,7 @@
 				internal.maskOwner = internal.maskOwnerStack.pop();
 				internal.mask[0].style.zIndex = internal.maskOwner[0].el[0].style.zIndex - 1;
 			} else {
-				internal.mask.fadeOut();
+				internal.mask.stop().fadeOut();
 			}
 		},
 		getDepth: function (){
@@ -7830,7 +7830,7 @@
 	var modoCore,
 		mceURL;
 
-	mceURL = '//tinymce.cachefly.net/4.1/tinymce.min.js';
+	mceURL = '//cdn.tinymce.com/4/tinymce.min.js';
 
 	//commonJS and AMD modularization - try to reach the core.
 	if(typeof modo !== 'undefined'){
@@ -7842,7 +7842,7 @@
 	}
 
 	modoCore.setLoadCallback('TinyMCE', function (){
-		window.tinymce.baseURL = '//tinymce.cachefly.net/4.1/';
+		window.tinymce.baseURL = '//cdn.tinymce.com/4';
 	});
 
 	function cn(index, prefixed){

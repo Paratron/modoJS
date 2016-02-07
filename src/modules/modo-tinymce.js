@@ -14,7 +14,7 @@
 	var modoCore,
 		mceURL;
 
-	mceURL = '//tinymce.cachefly.net/4.1/tinymce.min.js';
+	mceURL = '//cdn.tinymce.com/4/tinymce.min.js';
 
 	//commonJS and AMD modularization - try to reach the core.
 	if(typeof modo !== 'undefined'){
@@ -26,7 +26,7 @@
 	}
 
 	modoCore.setLoadCallback('TinyMCE', function (){
-		window.tinymce.baseURL = '//tinymce.cachefly.net/4.1/';
+		window.tinymce.baseURL = '//cdn.tinymce.com/4';
 	});
 
 	function cn(index, prefixed){

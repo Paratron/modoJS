@@ -63,7 +63,7 @@
 				internal.maskOwnerStack.push(internal.maskOwner);
 			}
 			internal.mask[0].style.zIndex = modal.el[0].style.zIndex - 1;
-			internal.mask.fadeIn();
+			internal.mask.stop().fadeIn();
 			internal.maskOwner = [modal, settings];
 		},
 		hideMask: function (){
@@ -72,7 +72,7 @@
 				internal.maskOwner = internal.maskOwnerStack.pop();
 				internal.mask[0].style.zIndex = internal.maskOwner[0].el[0].style.zIndex - 1;
 			} else {
-				internal.mask.fadeOut();
+				internal.mask.stop().fadeOut();
 			}
 		},
 		getDepth: function (){
