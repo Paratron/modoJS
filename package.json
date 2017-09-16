@@ -1,26 +1,19 @@
 {
-  "name": "modoJS",
-  "version": "1.1.3",
-  "description": "modoJS enables you to create the user interface of your Backbone driven web application.",
-  "dependencies": {
-    "grunt": "^0.4.1",
-    "grunt-contrib-less": "^0.6.1",
-    "grunt-contrib-concat": "^0.3.0",
-    "grunt-contrib-uglify": "^0.2.0",
-    "grunt-contrib-compress": "^0.5.0"
-  },
-  "devDependencies": {},
+  "name": "modojs",
+  "version": "2.0.0",
+  "description": "Component collection for React applications.",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "ssh://git@github.com:Paratron/modoJS.git"
+    "url": "git+https://github.com/Paratron/modoJS.git"
   },
-  "author": "Christian Engel <hello@wearekiss.com>",
+  "author": "Christian Engel @paratron",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Paratron/modoJS/issues"
   },
-  "homepage": "http://modojs.com"
+  "homepage": "https://github.com/Paratron/modoJS#readme"
 }
