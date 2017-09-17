@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/Paratron/modoJS/issues"
   },
-  "homepage": "https://github.com/Paratron/modoJS#readme"
+  "homepage": "https://github.com/Paratron/modoJS#readme",
+  "dependencies": {
+    "prop-types": "^15.5.10",
+    "react": "^15.6.1"
+  }
 }
