@@ -55,6 +55,9 @@ const makeSize = (size, screen, inject = '') => {
 		case 'shrink':
 			return screen ? `${unitString}-${inject}${size}` : size;
 			break;
+		case '0':
+		case 0:
+			return `hide-for-${unitString}-only`;
 		default:
 			return `${unitString}-${inject}${size}`;
 			break;
@@ -78,15 +81,15 @@ const Cell = (props) => {
 		children,
 	} = props;
 
-	if (size) {
+	if (size !== undefined) {
 		classNames.push(makeSize(size, 0));
 	}
 
-	if (sizeMedium) {
+	if (sizeMedium !== undefined) {
 		classNames.push(makeSize(sizeMedium, 1));
 	}
 
-	if (sizeLarge) {
+	if (sizeLarge !== undefined) {
 		classNames.push(makeSize(sizeLarge, 2));
 	}
 

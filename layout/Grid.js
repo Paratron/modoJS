@@ -8,6 +8,7 @@ const propTypes = {
 	gutter: PropTypes.string,
 	mediumGutter: PropTypes.string,
 	largeGutter: PropTypes.string,
+	fullHeight: PropTypes.bool,
 	className: PropTypes.string,
 	children: PropTypes.node,
 };
@@ -17,6 +18,7 @@ const defaultProps = {
 	gutter: null,
 	mediumGutter: null,
 	largeGutter: null,
+	fullHeight: false,
 	className: null,
 	children: null,
 };
@@ -31,6 +33,7 @@ const Grid = (props) => {
 		gutter,
 		mediumGutter,
 		largeGutter,
+		fullHeight,
 		className,
 		children,
 	} = props;
@@ -43,6 +46,10 @@ const Grid = (props) => {
 
 	if (mediumGutter) {
 
+	}
+
+	if(fullHeight){
+		classNames.push('mdo-fullHeight');
 	}
 
 
