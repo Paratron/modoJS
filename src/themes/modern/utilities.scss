@@ -1,0 +1,17 @@
+@import "_vars";
+
+.mdo-block {
+  display: block;
+}
+
+.mdo-text-center{
+  text-align: center;
+}
+
+.mdo-padding-top{
+  padding-top: $padding;
+}
+
+.mdo-padding-bottom{
+  padding-bottom: $padding;
+}

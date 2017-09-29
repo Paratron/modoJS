@@ -1,39 +1,47 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {cloneWithoutProps} from "./utilities/object";
+import Icon from '../Icon';
+
+import {cloneWithoutProps} from "../utils/object";
 
 const TYPES = {
 	DEFAULT: 0,
 	PRIMARY: 1,
+	MINIMAL: 2,
 };
 
 const typeCSS = [
 	'mdo-default',
 	'mdo-primary',
+	'mdo-minimal',
 ];
 
 const emptyFunc = () => {};
 
-propTypes = {
+const propTypes = {
 	type: PropTypes.number,
 	label: PropTypes.oneOfType([
 		PropTypes.string,
 		PropTypes.node,
 	]),
-	tooltip: PropTypes.string,
+	children: PropTypes.node,
+	title: PropTypes.string,
 	enabled: PropTypes.bool,
 	className: PropTypes.string,
 	onClick: PropTypes.func,
+	icon: PropTypes.string,
 };
 
-defaultProps = {
+const defaultProps = {
 	type: TYPES.DEFAULT,
 	label: '',
-	tooltip: '',
+	children: null,
+	title: '',
 	enabled: true,
 	className: '',
-	onClick: emptyFunc
+	onClick: emptyFunc,
+	icon: undefined,
 };
 
 const removeKeys = Object.keys(propTypes);
@@ -44,10 +52,12 @@ const Button = (props) => {
 	const {
 		type,
 		label,
-		tooltip,
+		children,
+		title,
 		enabled,
 		className,
-		onClick
+		onClick,
+		icon
 	} = props;
 
 	classNames.push(typeCSS[type]);
@@ -60,18 +70,30 @@ const Button = (props) => {
 		classNames.push(className);
 	}
 
+	const iconElm = icon ? <Icon name={icon} key="icon" /> : null;
+
+	if(icon){
+		classNames.push('mdo-has-icon');
+	}
+
+	if(!children && !label){
+		classNames.push('mdo-only-icon');
+	}
+
+	const content = [iconElm, children || label];
+
 	const cleanedProps = cloneWithoutProps(props, removeKeys);
 
 	return (
 		<div
 			{...cleanedProps}
 			className={classNames.join(' ')}
-			title={tooltip}
+			title={title}
 			tabIndex={enabled ? 0 : -1}
 			disabled={!enabled}
 			onClick={ enabled ? onClick : undefined}
 		>
-			{ label }
+			{ content }
 		</div>
 	);
 };

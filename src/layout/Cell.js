@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {cloneWithoutProps} from "../utilities/object";
+import {cloneWithoutProps} from "../utils/object";
 
 const propTypes = {
 	size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -13,6 +13,9 @@ const propTypes = {
 	order: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 	orderMedium: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 	orderLarge: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+	textAlign: PropTypes.oneOf(['left', 'right', 'center']),
+	textAlignMedium: PropTypes.oneOf(['left', 'right', 'center']),
+	textAlignLarge: PropTypes.oneOf(['left', 'right', 'center']),
 	className: PropTypes.string,
 	children: PropTypes.node,
 };
@@ -27,6 +30,9 @@ const defaultProps = {
 	order: undefined,
 	orderMedium: undefined,
 	orderLarge: undefined,
+	textAlign: 'left',
+	textAlignMedium: null,
+	textAlignLarge: null,
 	className: null,
 	children: null,
 };
@@ -69,24 +75,38 @@ const Cell = (props) => {
 
 	const {
 		size,
-		sizeMedium,
-		sizeLarge,
 		offset,
 		offsetMedium,
 		offsetLarge,
 		order,
 		orderMedium,
 		orderLarge,
+		textAlign,
+		textAlignMedium,
+		textAlignLarge,
 		className,
 		children,
 	} = props;
 
+	let {
+		sizeMedium,
+		sizeLarge,
+	} = props;
+
 	if (size !== undefined) {
 		classNames.push(makeSize(size, 0));
+
+		if (size === '0' || size === 0) {
+			sizeMedium = sizeMedium || 0;
+			sizeLarge = sizeMedium !== undefined ? sizeLarge : sizeLarge || 0;
+		}
 	}
 
 	if (sizeMedium !== undefined) {
 		classNames.push(makeSize(sizeMedium, 1));
+		if (sizeMedium === '0' || sizeMedium === 0) {
+			sizeLarge = sizeLarge || 0;
+		}
 	}
 
 	if (sizeLarge !== undefined) {
@@ -115,6 +135,18 @@ const Cell = (props) => {
 
 	if (orderLarge) {
 		classNames.push(makeSize(orderLarge, 2, 'order'));
+	}
+
+	if(textAlign){
+		classNames.push('text-' + textAlign);
+	}
+
+	if(textAlignMedium){
+		classNames.push('medium-text-' + textAlignMedium);
+	}
+
+	if(textAlignLarge){
+		classNames.push('large-text-' + textAlignLarge);
 	}
 
 	if (className) {

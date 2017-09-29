@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {cloneWithoutProps} from "./utilities/object";
+import {cloneWithoutProps} from "./utils/object";
 
 const propTypes = {
 	label: PropTypes.oneOfType([

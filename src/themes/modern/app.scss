@@ -1,0 +1,25 @@
+@import "vars";
+
+.tme-app-header{
+  background: $primary;
+  color: $inverseTextColor;
+  padding: $padding;
+
+  h1, h2, h3{
+    margin: 0;
+  }
+
+  .mdo-toolbar{
+    margin-top: 5px;
+  }
+}
+
+.grid-x .tme-app-sidebar{
+  max-width: 280px;
+  padding: $padding;
+  background: $alternateBackground;
+}
+
+.tme-app-workspace{
+  padding: $padding;
+}

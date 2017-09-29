@@ -1,0 +1,92 @@
+@import "_vars";
+
+.mdo-button {
+  display: inline-block;
+  padding: 0 20px;
+  color: #666;
+  border-radius: 3px;
+  height: 32px;
+  line-height: 32px;
+  font-size: 1rem;
+  cursor: pointer;
+  background: #ddd;
+  transition: background .3s, box-shadow .3s;
+  margin-right: $padding * 2;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  outline: none;
+  vertical-align: bottom;
+  white-space: nowrap;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+
+  &.mdo-block {
+    margin-right: 10px;
+  }
+
+  &:hover, &.mdo-active {
+    background: #ccc;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.8);
+  }
+
+  &:active {
+    background: #bbb;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5) inset;
+  }
+
+  &.mdo-primary {
+    border-color: $primary;
+    background: $primary;
+    transition: background .3s, border-color .3s;
+    color: $inverseTextColor;
+
+    &:hover, &.mdo-active {
+      border-color: darken($primary, 2%);
+      background: darken($primary, 2%);
+    }
+  }
+
+  &.mdo-minimal {
+    background: transparent;
+    box-shadow: none;
+
+    &:hover, &.mdo-active {
+      background: rgba(255, 255, 255, .2);
+    }
+  }
+
+  .mdo-icon {
+    vertical-align: top;
+    margin-right: 8px;
+  }
+
+  &.mdo-has-icon {
+    padding-left: 4px;
+    padding-top: 4px;
+    line-height: 27px;
+  }
+
+  &.mdo-only-icon {
+    height: 32px;
+    padding: 4px;
+
+    .mdo-icon {
+      margin: 0;
+      display: block;
+      width: 24px;
+      height: 24px;
+    }
+  }
+}
+
+.tme-app-header {
+  .mdo-button.mdo-minimal {
+    color: $inverseTextColor;
+  }
+}
+
+.text-right{
+  .mdo-button{
+    margin-right: 0;
+    margin-left: $padding * 2;
+  }
+}

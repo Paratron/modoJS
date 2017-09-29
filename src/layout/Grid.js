@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {cloneWithoutProps} from "../utilities/object";
+import {cloneWithoutProps} from "../utils/object";
 
 const propTypes = {
 	orientation: PropTypes.oneOf(['x', 'y']),
@@ -9,6 +9,7 @@ const propTypes = {
 	mediumGutter: PropTypes.string,
 	largeGutter: PropTypes.string,
 	fullHeight: PropTypes.bool,
+	padded: PropTypes.bool,
 	className: PropTypes.string,
 	children: PropTypes.node,
 };
@@ -19,6 +20,7 @@ const defaultProps = {
 	mediumGutter: null,
 	largeGutter: null,
 	fullHeight: false,
+	padded: false,
 	className: null,
 	children: null,
 };
@@ -34,6 +36,7 @@ const Grid = (props) => {
 		mediumGutter,
 		largeGutter,
 		fullHeight,
+		padded,
 		className,
 		children,
 	} = props;
@@ -50,6 +53,10 @@ const Grid = (props) => {
 
 	if(fullHeight){
 		classNames.push('mdo-fullHeight');
+	}
+
+	if(padded){
+		classNames.push('mdo-padded');
 	}
 
 
