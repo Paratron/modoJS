@@ -1,0 +1,37 @@
+@import "_vars";
+
+.mdo-dialog {
+  background: rgba(0, 0, 0, .5);
+
+  .mdo-dialog-content, .mdo-dialog-header {
+    padding: $padding * 2;
+  }
+
+  .mdo-dialog-header{
+    padding-bottom: 0;
+
+    h1, h2, h3, h4, h5, h6{
+      margin: 0;
+    }
+  }
+
+  &.tme-picker {
+    .mdo-dialog-window {
+      border-radius: 2px;
+      margin-top: 0;
+      margin-bottom: 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 300px;
+      max-width: 300px;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 10px 50px rgba(0, 0, 0, .5);
+    }
+
+    .mdo-dialog-content{
+      max-height: 300px;
+      overflow-y: auto;
+    }
+  }
+}

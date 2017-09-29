@@ -1,0 +1,14 @@
+.mdo-dialog{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow-y: auto;
+
+  .mdo-dialog-window{
+    background: #fff;
+    max-width: 800px;
+    margin: 40px auto;
+  }
+}

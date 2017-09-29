@@ -29,7 +29,7 @@ const propTypes = {
 	title: PropTypes.string,
 	enabled: PropTypes.bool,
 	className: PropTypes.string,
-	onClick: PropTypes.func,
+	onChange: PropTypes.func,
 	icon: PropTypes.string,
 };
 

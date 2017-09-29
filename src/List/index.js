@@ -20,7 +20,7 @@ const DefaultListItemComponent = (props) => {
 
 		return (
 			<div className={className} onClick={onClick}>
-				<Icon name={icon} />
+				<Icon name={icon}/>
 				<span className="content">
 					{children}
 				</span>
@@ -64,7 +64,7 @@ const propTypes = {
 	itemComponent: PropTypes.oneOfType([PropTypes.func]),
 	keyPropName: PropTypes.string,
 	propName: PropTypes.string,
-	onClick: PropTypes.func,
+	onChange: PropTypes.func,
 	value: PropTypes.string,
 	enabled: PropTypes.bool,
 	className: PropTypes.string,
@@ -87,16 +87,20 @@ export default class List extends React.Component {
 		const handlers = {};
 
 		this.handleClick = (index) => {
+			if (!this.props.onChange) {
+				return null;
+			}
+
 			if (handlers[index]) {
 				return handlers[index];
 			}
 
 			const clickHandler = () => {
 				if (this.props.items instanceof Array) {
-					this.props.onClick(this.props.items[index][this.props.keyPropName]);
+					this.props.onChange(this.props.items[index][this.props.keyPropName]);
 					return;
 				}
-				this.props.onClick(Object.keys(this.props.items)[index]);
+				this.props.onChange(Object.keys(this.props.items)[index]);
 			};
 
 			handlers[index] = clickHandler;
@@ -113,13 +117,13 @@ export default class List extends React.Component {
 			itemComponent,
 			propName,
 			keyPropName,
-			onClick,
+			onChange,
 			enabled,
 			className,
 			value,
 		} = this.props;
 
-		if (onClick) {
+		if (onChange) {
 			classNames.push('mdo-clickable');
 		}
 

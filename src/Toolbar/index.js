@@ -81,7 +81,7 @@ export default class Toolbar extends DynamicHandlerComponent {
 				}
 			}
 
-			props.onClick = this.handleClick(props.key);
+			props.onChange = this.handleClick(props.key);
 			props.enabled = enabled;
 
 			return <Button {...props} />;
