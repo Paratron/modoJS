@@ -2,12 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {cloneWithoutProps} from "../utils/object";
+import DynamicHandlerComponent from "../utils/DynamicHandlerComponent";
 
 const propTypes = {
 	value: PropTypes.string,
 	type: PropTypes.string,
 	placeholder: PropTypes.string,
 	onChange: PropTypes.func,
+	onFocus: PropTypes.func,
+	onBlur: PropTypes.func,
 	className: PropTypes.string,
 	enabled: PropTypes.bool,
 	multiline: PropTypes.bool,
@@ -19,6 +22,8 @@ const defaultProps = {
 	type: 'text',
 	placeholder: '',
 	onChange: undefined,
+	onFocus: undefined,
+	onBlur: undefined,
 	className: null,
 	enabled: true,
 	multiline: false,
@@ -27,15 +32,33 @@ const defaultProps = {
 
 const removeKeys = Object.keys(propTypes);
 
-export default class TextInput extends React.Component {
+export default class TextInput extends DynamicHandlerComponent {
 	constructor(props) {
 		super(props);
+
+		this.state = {
+			isFocused: false,
+		};
 
 		this.handleChange = (e) => {
 			if (this.props.enabled && this.props.onChange) {
 				this.props.onChange(e.target.value);
 			}
 		};
+
+		this.handleFocus = () => {
+			this.setState({isFocused: true});
+			if (this.props.onFocus) {
+				this.props.onFocus();
+			}
+		};
+
+		this.handleBlur = () => {
+			this.setState({isFocused: false});
+			if (this.props.onBlur) {
+				this.props.onBlur();
+			}
+		}
 	}
 
 	componentDidMount() {
@@ -54,6 +77,10 @@ export default class TextInput extends React.Component {
 			multiline,
 		} = this.props;
 
+		const {
+			isFocused,
+		} = this.state;
+
 		const cleanedProps = cloneWithoutProps(this.props, removeKeys);
 
 		if (!enabled) {
@@ -66,6 +93,10 @@ export default class TextInput extends React.Component {
 			classNames.push('mdo-empty');
 		}
 
+		if (isFocused) {
+			className.push('mdo-focused');
+		}
+
 		if (className) {
 			classNames.push(className);
 		}
@@ -76,6 +107,8 @@ export default class TextInput extends React.Component {
 					{...cleanedProps}
 					className={classNames.join(' ')}
 					onChange={this.handleChange}
+					onFocus={this.handleFocus}
+					onBlur={this.handleBlur}
 					ref={(elm) => this.ref = elm}
 					value={value}
 				/>
@@ -87,6 +120,8 @@ export default class TextInput extends React.Component {
 				{...cleanedProps}
 				className={classNames.join(' ')}
 				onChange={this.handleChange}
+				onFocus={this.handleFocus}
+				onBlur={this.handleBlur}
 				ref={(elm) => this.ref = elm}
 				value={value}
 			/>

@@ -13,11 +13,11 @@ export default class DynamicHandlerComponent extends React.Component {
 		 */
 		this.handleStateUpdate = (propName) => {
 			const handlerKey = 'stateUpdate:' + propName;
-			if(handlers[handlerKey]){
+			if (handlers[handlerKey]) {
 				return handlers[handlerKey];
 			}
 
-			const handler = (value) => this.setState({ [propName]: value });
+			const handler = (value) => this.setState({[propName]: value});
 
 			// This helps when using debugger tools!
 			Object.defineProperty(handler, 'name', {value: handlerKey});
@@ -34,17 +34,57 @@ export default class DynamicHandlerComponent extends React.Component {
 		 */
 		this.toggleStateValue = (propName) => {
 			const handlerKey = 'toggleStateProperty:' + propName;
-			if(handlers[handlerKey]){
+			if (handlers[handlerKey]) {
 				return handlers[handlerKey];
 			}
 
-			const handler = () => this.setState({ [propName]: !this.state[propName] });
+			const handler = () => this.setState({[propName]: !this.state[propName]});
 
 			Object.defineProperty(handler, 'name', {value: handlerKey});
 
 			handlers[handlerKey] = handler;
 
 			return handler;
-		}
+		};
+
+		/**
+		 * Sets a state property to boolean true.
+		 * @param propName
+		 * @returns {*}
+		 */
+		this.handleStateUpdateBooleanTrue = (propName) => {
+			const handlerKey = 'setStatePropertyToTrue:' + propName;
+			if (handlers[handlerKey]) {
+				return handlers[handlerKey];
+			}
+
+			const handler = () => this.setState({[propName]: true});
+
+			Object.defineProperty(handler, 'name', {value: handlerKey});
+
+			handlers[handlerKey] = handler;
+
+			return handler;
+		};
+
+		/**
+		 * Sets a state property to boolean false.
+		 * @param propName
+		 * @returns {*}
+		 */
+		this.handleStateUpdateBooleanFalse = (propName) => {
+			const handlerKey = 'setStatePropertyToFalse:' + propName;
+			if (handlers[handlerKey]) {
+				return handlers[handlerKey];
+			}
+
+			const handler = () => this.setState({[propName]: false});
+
+			Object.defineProperty(handler, 'name', {value: handlerKey});
+
+			handlers[handlerKey] = handler;
+
+			return handler;
+		};
 	}
 }
