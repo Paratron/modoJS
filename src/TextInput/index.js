@@ -11,9 +11,12 @@ const propTypes = {
 	onChange: PropTypes.func,
 	onFocus: PropTypes.func,
 	onBlur: PropTypes.func,
+	/** Callback to be called onFocus AND onBlur. A boolean will be passed to the cb to tell if the comp has focus. */
+	onFocusBlur: PropTypes.func,
 	className: PropTypes.string,
 	enabled: PropTypes.bool,
 	multiline: PropTypes.bool,
+	/** Automatically focus the component when mounted. */
 	autofocus: PropTypes.bool,
 };
 
@@ -24,13 +27,14 @@ const defaultProps = {
 	onChange: undefined,
 	onFocus: undefined,
 	onBlur: undefined,
+	onFocusBlur: undefined,
 	className: null,
 	enabled: true,
 	multiline: false,
 	autofocus: false,
 };
 
-const removeKeys = Object.keys(propTypes);
+const removeKeys = Object.keys(propTypes).filter(i => i !== 'type');
 
 export default class TextInput extends DynamicHandlerComponent {
 	constructor(props) {
@@ -51,12 +55,18 @@ export default class TextInput extends DynamicHandlerComponent {
 			if (this.props.onFocus) {
 				this.props.onFocus();
 			}
+			if (this.props.onFocusBlur) {
+				this.props.onFocusBlur(true);
+			}
 		};
 
 		this.handleBlur = () => {
 			this.setState({isFocused: false});
 			if (this.props.onBlur) {
 				this.props.onBlur();
+			}
+			if (this.props.onFocusBlur) {
+				this.props.onFocusBlur(false);
 			}
 		}
 	}
@@ -75,6 +85,7 @@ export default class TextInput extends DynamicHandlerComponent {
 			className,
 			enabled,
 			multiline,
+			placeholder,
 		} = this.props;
 
 		const {
@@ -94,7 +105,7 @@ export default class TextInput extends DynamicHandlerComponent {
 		}
 
 		if (isFocused) {
-			className.push('mdo-focused');
+			classNames.push('mdo-focused');
 		}
 
 		if (className) {
@@ -110,7 +121,7 @@ export default class TextInput extends DynamicHandlerComponent {
 					onFocus={this.handleFocus}
 					onBlur={this.handleBlur}
 					ref={(elm) => this.ref = elm}
-					value={value}
+					value={value === null ? '' : value}
 				/>
 			);
 		}
@@ -122,8 +133,9 @@ export default class TextInput extends DynamicHandlerComponent {
 				onChange={this.handleChange}
 				onFocus={this.handleFocus}
 				onBlur={this.handleBlur}
+				placeholder={placeholder}
 				ref={(elm) => this.ref = elm}
-				value={value}
+				value={value === null ? '' : value}
 			/>
 		);
 	}
