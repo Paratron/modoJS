@@ -122,6 +122,7 @@ export default class TextInput extends DynamicHandlerComponent {
 					onBlur={this.handleBlur}
 					ref={(elm) => this.ref = elm}
 					value={value === null ? '' : value}
+					placeholder={placeholder}
 				/>
 			);
 		}
