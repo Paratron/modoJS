@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm run build:js && npm run build:style",
+    "build": "npm run build:js && npm run build:style && robocopy ./src/package.json ./dist",
     "build:js": "babel src --out-dir dist",
     "build:style": "node-sass src/modo.scss -o dist && node-sass src/themes/modern.scss -o dist/themes"
   },
@@ -28,6 +28,6 @@
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-es2015": "^6.24.1",
     "foundation-sites": "^6.4.3",
-    "node-sass": "^4.5.3"
+    "node-sass": "^4.9.2"
   }
 }
