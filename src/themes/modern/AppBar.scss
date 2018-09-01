@@ -1,0 +1,35 @@
+@import "vars";
+
+.mdo-appbar {
+  background: $primary;
+  color: $inverseTextColor;
+  padding: $padding * 0.5 $padding;
+  height: 3 * $padding;
+  position: relative;
+
+  & > div {
+    display: inline-flex;
+    align-items: center;
+    flex: 1 1 auto;
+    height: 3 * $padding;
+    width: 100%;
+
+    & > .mdo-grid {
+      width: 100%;
+    }
+  }
+  // box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),0px 4px 5px 0px rgba(0, 0, 0, 0.14),0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+
+  &.cell {
+    flex: 0 0 auto;
+  }
+
+  h1, h2, h3 {
+    margin: 0;
+    font-size: 1.3rem;
+  }
+
+  .mdo-toolbar {
+    margin-top: 5px;
+  }
+}

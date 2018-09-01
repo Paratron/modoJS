@@ -3,12 +3,22 @@
 .mdo-list {
   margin-left: -$padding;
   margin-right: -$padding;
+  margin-top: -$padding;
 
   .mdo-list-item {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
     padding: $padding;
     white-space: nowrap;
     overflow-x: hidden;
     text-overflow: ellipsis;
+    transition: background-color .3s;
+    margin-top: 0;
+
+    &:hover{
+      background: #eee;
+    }
 
     &.mdo-has-icon {
       font-size: 0;
@@ -19,6 +29,7 @@
 
       .content {
         display: inline-block;
+        margin-top: 0;
         line-height: 24px;
         height: 24px;
         font-size: 1rem;

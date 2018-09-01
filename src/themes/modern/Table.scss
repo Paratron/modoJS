@@ -1,0 +1,41 @@
+@import "vars";
+
+.mdo-table {
+  border-collapse: collapse;
+  width: 100%;
+
+  th.mdo-sortable{
+    cursor: pointer;
+    position: relative;
+    padding-right: 20px;
+
+    &:after{
+      content: "⯅";
+      position: absolute;
+      top: 50%;
+      right: 5px;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      transition: opacity .3s;
+    }
+
+    &:hover:after{
+      opacity: .3;
+    }
+  }
+
+  th.mdo-sortable.mdo-sort-asc:after{
+    content: "⯅";
+    opacity: 1;
+  }
+
+  th.mdo-sortable.mdo-sort-desc:after{
+    content: "⯆";
+    opacity: 1;
+  }
+
+  th, td{
+    padding: 5px;
+    border-bottom: $alternateBackgroundAccent solid 1px;
+  }
+}

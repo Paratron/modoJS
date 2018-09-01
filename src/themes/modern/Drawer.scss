@@ -1,0 +1,8 @@
+@import "vars";
+
+.mdo-drawer {
+  max-width: 280px;
+  padding: $padding;
+  background: $alternateBackground;
+  border-right: $alternateBackgroundAccent solid 1px;
+}

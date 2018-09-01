@@ -2,6 +2,7 @@
 
 .mdo-button {
   display: inline-block;
+  border: none;
   padding: 0 20px;
   color: #666;
   border-radius: 3px;
@@ -18,6 +19,15 @@
   white-space: nowrap;
   overflow-x: hidden;
   text-overflow: ellipsis;
+
+  a{
+    color: #666;
+    text-decoration: none;
+
+    &:hover{
+      text-decoration: none;
+    }
+  }
 
   &.mdo-block {
     margin-right: 10px;
@@ -50,7 +60,7 @@
     box-shadow: none;
 
     &:hover, &.mdo-active {
-      background: rgba(255, 255, 255, .2);
+      background: rgba(0, 0, 0, .2);
     }
   }
 
@@ -88,5 +98,11 @@
   .mdo-button{
     margin-right: 0;
     margin-left: $padding * 2;
+  }
+}
+
+.mdo-form-container{
+  .mdo-button{
+
   }
 }

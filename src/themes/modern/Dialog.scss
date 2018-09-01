@@ -3,15 +3,25 @@
 .mdo-dialog {
   background: rgba(0, 0, 0, .5);
 
+  .mdo-dialog-window {
+    box-shadow: 0 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
+    border-radius: 4px;
+  }
+
   .mdo-dialog-content, .mdo-dialog-header {
     padding: $padding * 2;
   }
 
-  .mdo-dialog-header{
+  .mdo-dialog-header + .mdo-dialog-content {
+    margin-top: 0;
+  }
+
+  .mdo-dialog-header {
     padding-bottom: 0;
 
-    h1, h2, h3, h4, h5, h6{
+    h1, h2, h3, h4, h5, h6 {
       margin: 0;
+      font-size: 1.3rem;
     }
   }
 
@@ -29,7 +39,7 @@
       box-shadow: 0 10px 50px rgba(0, 0, 0, .5);
     }
 
-    .mdo-dialog-content{
+    .mdo-dialog-content {
       max-height: 300px;
       overflow-y: auto;
     }
