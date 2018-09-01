@@ -3,6 +3,10 @@
 .mdo-drawer {
   max-width: 280px;
   padding: $padding;
-  background: $alternateBackground;
   border-right: $alternateBackgroundAccent solid 1px;
+
+  &:last-child{
+    border-right: none;
+    border-left: $alternateBackgroundAccent solid 1px;
+  }
 }
