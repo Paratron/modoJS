@@ -29,7 +29,7 @@ const propTypes = {
 	title: PropTypes.string,
 	enabled: PropTypes.bool,
 	className: PropTypes.string,
-	onChange: PropTypes.func,
+	onClick: PropTypes.func,
 	icon: PropTypes.string,
 };
 
@@ -85,7 +85,7 @@ const Button = (props) => {
 	const cleanedProps = cloneWithoutProps(props, removeKeys);
 
 	return (
-		<div
+		<button
 			{...cleanedProps}
 			className={classNames.join(' ')}
 			title={title}
@@ -94,7 +94,7 @@ const Button = (props) => {
 			onClick={ enabled ? onClick : undefined}
 		>
 			{ content }
-		</div>
+		</button>
 	);
 };
 
