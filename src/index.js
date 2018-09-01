@@ -4,6 +4,7 @@ import Card from './Card';
 import Dialog from './Dialog/Dialog';
 import DialogContent from './Dialog/DialogContent';
 import DialogHeader from './Dialog/DialogHeader';
+import DialogFooter from './Dialog/DialogFooter';
 import Icon from './Icon';
 import FormContainer from './FormContainer';
 import List from './List';
@@ -29,6 +30,7 @@ export {
 	Dialog,
 	DialogContent,
 	DialogHeader,
+	DialogFooter,
 	FormContainer,
 	Icon,
 	List,

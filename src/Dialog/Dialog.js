@@ -84,7 +84,7 @@ export default class Dialog extends React.Component {
 		return (
 			<div className={classNames.join(' ')} onClick={this.handleBackgroundClick}>
 				<div className="mdo-dialog-window" onClick={this.handleWindowClick}>
-					{children}
+					{open ? children : null}
 				</div>
 			</div>
 		);

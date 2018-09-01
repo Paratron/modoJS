@@ -18,7 +18,7 @@
     }
   }
 
-  .mdo-dialog-content, .mdo-dialog-header {
+  .mdo-dialog-content, .mdo-dialog-header, .mdo-dialog-footer {
     padding: $padding * 2;
   }
 
@@ -33,6 +33,12 @@
       margin: 0;
       font-size: 1.3rem;
     }
+  }
+
+  .mdo-dialog-footer{
+    margin-top: 0;
+    padding-top: 0;
+    text-align: right;
   }
 
   &.tme-picker {
