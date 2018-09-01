@@ -26,7 +26,7 @@ const GridFrame = (props) => {
 	}
 
 	return (
-		<Grid orientation="y" className={classNames.join(' ')}>
+		<Grid {...props} orientation="y" className={classNames.join(' ')}>
 			{children}
 		</Grid>
 	);

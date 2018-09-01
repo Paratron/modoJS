@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import {cloneWithoutProps} from "../utils/object";
 
-const propTypes = {
+export const propTypes = {
 	size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 	sizeMedium: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 	sizeLarge: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -20,7 +20,7 @@ const propTypes = {
 	children: PropTypes.node,
 };
 
-const defaultProps = {
+export const defaultProps = {
 	size: 'auto',
 	sizeMedium: undefined,
 	sizeLarge: undefined,
