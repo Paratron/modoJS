@@ -19,6 +19,14 @@ const defaultProps = {
 	onClose: undefined,
 };
 
+const closeHandlers = [];
+
+window.addEventListener('keydown', (e) => {
+	if(e.key === 'Escape'){
+		closeHandlers.forEach(c => c());
+	}
+});
+
 export default class Dialog extends React.Component {
 	constructor(props) {
 		super(props);
@@ -37,6 +45,22 @@ export default class Dialog extends React.Component {
 		this.handleWindowClick = (e) => {
 			e.stopPropagation();
 		};
+	}
+
+	componentDidMount(){
+		if(this.props.onClose && this.props.closeOnEscape){
+			closeHandlers.push(this.props.onClose);
+		}
+	}
+
+	componentWillUnmount(){
+		if(this.props.onClose){
+			const index = closeHandlers.indexOf(this.props.onClose);
+			if(index === -1){
+				return;
+			}
+			closeHandlers.splice(index, 1);
+		}
 	}
 
 	render() {
