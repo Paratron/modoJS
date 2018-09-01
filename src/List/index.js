@@ -29,7 +29,7 @@ const DefaultListItemComponent = (props) => {
 	}
 
 	return (
-		<div onClick={onClick}>
+		<div className={className} onClick={onClick}>
 			{children}
 		</div>
 	);
@@ -121,6 +121,7 @@ export default class List extends React.Component {
 			enabled,
 			className,
 			value,
+			children,
 		} = this.props;
 
 		if (onChange) {
@@ -135,9 +136,11 @@ export default class List extends React.Component {
 			classNames.push(classname);
 		}
 
-		const elements = items instanceof Array
-			? items.map((d, index) => makeItem(itemComponent, d[keyPropName], d[propName], d, value, this.handleClick(index)))
-			: Object.keys(items).map((key, index) => makeItem(itemComponent, key, items[key][propName], items[key], value, this.handleClick(index)));
+		const elements = children
+			? children
+			: items instanceof Array
+				? items.map((d, index) => makeItem(itemComponent, d[keyPropName], d[propName], d, value, this.handleClick(index)))
+				: Object.keys(items).map((key, index) => makeItem(itemComponent, key, items[key][propName], items[key], value, this.handleClick(index)));
 
 		return (
 			<div className={classNames.join(' ')}>
