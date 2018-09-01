@@ -77,8 +77,8 @@ export default class Dialog extends React.Component {
 			classNames.push(className);
 		}
 
-		if (!open) {
-			return null;
+		if (open) {
+			classNames.push('mdo-open');
 		}
 
 		return (

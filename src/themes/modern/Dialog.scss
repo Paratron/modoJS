@@ -2,10 +2,20 @@
 
 .mdo-dialog {
   background: rgba(0, 0, 0, .5);
+  transition: opacity .3s;
 
   .mdo-dialog-window {
     box-shadow: 0 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
     border-radius: 4px;
+    transform: translate(0, -200%);
+    transition-delay: .2s;
+    transition: transform .3s;
+  }
+
+  &.mdo-open{
+    .mdo-dialog-window{
+      transform: translate(0, 0);
+    }
   }
 
   .mdo-dialog-content, .mdo-dialog-header {

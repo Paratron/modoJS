@@ -6,6 +6,13 @@
   height: 100vh;
   overflow-y: auto;
   margin: 0;
+  opacity: 0;
+  pointer-events: none;
+
+  &.mdo-open{
+    opacity: 1;
+    pointer-events: all;
+  }
 
   .mdo-dialog-window{
     background: #fff;
