@@ -9,15 +9,16 @@ export default class DynamicHandlerComponent extends React.Component {
 		/**
 		 * This updates a property in the components state object.
 		 * @param string propName
+		 * @param string [valueKey=null] If your incoming value is an object and you want to just use one property of it, name it here.
 		 * @returns {function}
 		 */
-		this.handleStateUpdate = (propName) => {
+		this.handleStateUpdate = (propName, valueKey = null) => {
 			const handlerKey = 'stateUpdate:' + propName;
 			if (handlers[handlerKey]) {
 				return handlers[handlerKey];
 			}
 
-			const handler = (value) => this.setState({[propName]: value});
+			const handler = (value) => this.setState({[propName]: valueKey !== null ? value[valueKey] : value});
 
 			// This helps when using debugger tools!
 			Object.defineProperty(handler, 'name', {value: handlerKey});
