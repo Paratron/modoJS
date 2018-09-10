@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm run build:js && npm run build:style && robocopy ./src ./dist package.json || echo 'done'",
-    "build:js": "babel src --out-dir dist",
+    "build:js": "babel ./src --out-dir ./dist -s inline",
+    "watch": "babel ./src/**/* --watch --out-dir ./dist -s inline",
     "build:style": "node-sass src/modo.scss -o dist && node-sass src/themes/modern.scss -o dist/themes"
   },
   "repository": {
