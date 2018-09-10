@@ -30,7 +30,7 @@ const getInitialState = (children) => {
 	return result;
 };
 
-const prepareChildren = (compInstance, children) => React.Children.map(children, (c) => {
+const prepareChildren = (compInstance, children, inValue) => React.Children.map(children, (c) => {
 	const name = c.props.name;
 
 	if (!name) {
@@ -44,7 +44,7 @@ const prepareChildren = (compInstance, children) => React.Children.map(children,
 			c.props,
 			{
 				key: c.props.key || name,
-				value: compInstance.state[name],
+				value: inValue ? inValue[name] : compInstance.state[name],
 				onChange: compInstance.getChangeHandler(name)
 			}
 		)
@@ -56,7 +56,7 @@ export default class FormContainer extends React.Component {
 		super(props);
 
 		this.handlers = {};
-		this.state = props.value || props.children ? getInitialState(props.children) : {};
+		this.state = props.value ? null : getInitialState(props.children);
 
 		this.getChangeHandler = (dataKey) => {
 			if (this.handlers[dataKey]) {
@@ -77,6 +77,7 @@ export default class FormContainer extends React.Component {
 		const {
 			className,
 			children,
+			value,
 		} = this.props;
 
 		if (className) {
@@ -85,7 +86,7 @@ export default class FormContainer extends React.Component {
 
 		return (
 			<div className={classNames.join(' ')}>
-				{prepareChildren(this, children)}
+				{prepareChildren(this, children, value)}
 			</div>
 		);
 	}
