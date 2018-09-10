@@ -6,6 +6,8 @@ const propTypes = {
 	children: PropTypes.node,
 	className: PropTypes.string,
 	onChange: PropTypes.func,
+	onFocus: PropTypes.func,
+	onBlur: PropTypes.func,
 	enabled: PropTypes.bool,
 };
 
@@ -15,6 +17,31 @@ const defaultProps = {
 };
 
 export default class FormSlot extends React.Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			hasFocus: false,
+		};
+
+		this.focus = null;
+		this.blur = null;
+		this.prepareChild = (children, restProps) => {
+			if (!this.focus) {
+				this.focus = () => {
+					children.props.onFocus ? children.props.onFocus() : null;
+					this.setState({hasFocus: true});
+				};
+				this.blur = () => {
+					children.props.onBlur ? children.props.onBlur() : null;
+					this.setState({hasFocus: false});
+				};
+			}
+
+			return React.cloneElement(children, Object.assign({}, restProps, {onFocus: this.focus, onBlur: this.blur}));
+		};
+	}
+
 	render() {
 		const classNames = ['mdo-formslot'];
 
@@ -26,19 +53,33 @@ export default class FormSlot extends React.Component {
 			...restProps
 		} = this.props;
 
-		if(!enabled){
+		const {
+			hasFocus
+		} = this.state;
+
+		if (!enabled) {
 			classNames.push('mdo-disabled');
 		}
 
-		if(className){
+		if(hasFocus){
+			classNames.push('mdo-focused');
+		}
+
+		if(restProps.value === undefined || restProps.value === null){
+			classNames.push('mdo-empty');
+		}
+
+		if (className) {
 			classNames.push(className);
 		}
+
+		const preparedChild = this.prepareChild(children, restProps);
 
 		return (
 			<div className={classNames.join(' ')}>
 				<label>
-					<span>{ label }</span>
-					{React.cloneElement(children, restProps)}
+					<span>{label}</span>
+					{preparedChild}
 				</label>
 			</div>
 		);
