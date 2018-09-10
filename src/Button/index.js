@@ -25,6 +25,7 @@ const propTypes = {
 		PropTypes.string,
 		PropTypes.node,
 	]),
+	block: PropTypes.bool,
 	children: PropTypes.node,
 	title: PropTypes.string,
 	enabled: PropTypes.bool,
@@ -57,13 +58,18 @@ const Button = (props) => {
 		enabled,
 		className,
 		onClick,
-		icon
+		icon,
+		block,
 	} = props;
 
 	classNames.push(typeCSS[type]);
 
 	if(!enabled){
 		classNames.push('mdo-disabled');
+	}
+
+	if(block){
+		classNames.push('mdo-block');
 	}
 
 	if(className){
