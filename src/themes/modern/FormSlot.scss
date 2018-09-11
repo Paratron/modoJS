@@ -13,6 +13,7 @@
       display: inline-block;
       position: absolute;
       top: 50%;
+      pointer-events: none;
       left: ($padding/2) - 2px;
       transform-origin: bottom left;
       background: #fff;
