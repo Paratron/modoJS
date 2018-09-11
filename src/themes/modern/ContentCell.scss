@@ -5,3 +5,7 @@
   padding: $padding;
   overflow-y: auto;
 }
+
+.mdo-appbar + .mdo-content-cell{
+  padding-top: 60px;
+}

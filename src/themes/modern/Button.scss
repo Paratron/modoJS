@@ -20,6 +20,12 @@
   overflow-x: hidden;
   text-overflow: ellipsis;
 
+  &.mdo-block{
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+
   a{
     color: #666;
     text-decoration: none;

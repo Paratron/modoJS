@@ -1,0 +1,31 @@
+@import "vars";
+
+.mdo-formslot{
+  position: relative;
+
+  & ::placeholder{
+    color: transparent;
+    opacity: 0;
+  }
+
+  label{
+    span{
+      display: inline-block;
+      position: absolute;
+      top: 50%;
+      left: ($padding/2) - 2px;
+      transform-origin: bottom left;
+      background: #fff;
+      transform: translateY(-50%) scale(1);
+      transition: transform .15s;
+      padding: 0 5px;
+      line-height: 1;
+    }
+  }
+
+  &.mdo-focused, &.mdo-filled{
+    span{
+      transform: translateY(-170%) scale(.75);
+    }
+  }
+}

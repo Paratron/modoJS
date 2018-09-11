@@ -55,3 +55,9 @@
     }
   }
 }
+
+.mdo-card{
+  & > .mdo-list{
+    margin: -($padding * 0.5);
+  }
+}

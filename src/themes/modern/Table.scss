@@ -2,40 +2,64 @@
 
 .mdo-table {
   border-collapse: collapse;
-  width: 100%;
+  width: calc(100% + #{$padding * 2});
+  margin-left: -$padding;
+  margin-right: -$padding * 2;
 
-  th.mdo-sortable{
+  tr:nth-child(2n-1) {
+    td {
+      background: #f1f1f1;
+    }
+  }
+
+  th:first-child, td:first-child {
+    padding-left: 90px;
+  }
+
+  th:last-child, td:last-child {
+    padding-right: 90px;
+  }
+
+  th.mdo-sortable {
     cursor: pointer;
     position: relative;
     padding-right: 20px;
 
-    &:after{
-      content: "⯅";
+    &:before, &:after {
       position: absolute;
       top: 50%;
       right: 5px;
-      transform: translate(-50%, -50%);
-      opacity: 0;
       transition: opacity .3s;
     }
 
-    &:hover:after{
+    &:before {
+      transform: rotate(90deg);
+      padding-right: 5px;
+      content: "⏴";
+    }
+
+    &:after {
+      transform: rotate(90deg);
+      padding-left: 5px;
+      content: "⏵";
+    }
+
+    &:hover:after {
       opacity: .3;
     }
   }
 
-  th.mdo-sortable.mdo-sort-asc:after{
+  th.mdo-sortable.mdo-sort-asc:after {
     content: "⯅";
     opacity: 1;
   }
 
-  th.mdo-sortable.mdo-sort-desc:after{
+  th.mdo-sortable.mdo-sort-desc:after {
     content: "⯆";
     opacity: 1;
   }
 
-  th, td{
+  th, td {
     padding: 5px;
-    border-bottom: $alternateBackgroundAccent solid 1px;
   }
 }
