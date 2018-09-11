@@ -61,12 +61,12 @@ export default class FormSlot extends React.Component {
 			classNames.push('mdo-disabled');
 		}
 
-		if(hasFocus){
+		if (hasFocus) {
 			classNames.push('mdo-focused');
 		}
 
-		if(restProps.value === undefined || restProps.value === null){
-			classNames.push('mdo-empty');
+		if (restProps.value !== undefined && restProps.value !== null && restProps.value !== '') {
+			classNames.push('mdo-filled');
 		}
 
 		if (className) {
