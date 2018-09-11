@@ -12,7 +12,7 @@
     span{
       display: inline-block;
       position: absolute;
-      top: 50%;
+      top: $padding + ($padding * 0.1);
       pointer-events: none;
       left: ($padding/2) - 2px;
       transform-origin: bottom left;
@@ -26,7 +26,7 @@
 
   &.mdo-focused, &.mdo-filled{
     span{
-      transform: translateY(-170%) scale(.75);
+      transform: translateY(-175%) scale(.75);
     }
   }
 }
