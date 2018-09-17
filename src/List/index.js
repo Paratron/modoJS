@@ -133,7 +133,7 @@ export default class List extends React.Component {
 		}
 
 		if (className) {
-			classNames.push(classname);
+			classNames.push(className);
 		}
 
 		const elements = children
