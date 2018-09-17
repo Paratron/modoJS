@@ -1,0 +1,40 @@
+@import "vars";
+
+.mdo-tabgroup{
+  .mdo-tab-selectors{
+    display: flex;
+
+    .mdo-button{
+      flex: 1;
+      margin: 0;
+      border-radius: 0;
+      position: relative;
+
+      &:after{
+        content: "";
+        display: block;
+        width: 100%;
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        background: $primary;
+        transform-origin: 50% 50%;
+        transform: scale(0, 1);
+        transition: transform .3s;
+      }
+
+      &.mdo-active{
+        background: transparent;
+
+        &:after{
+          transform: scale(1, 1);
+        }
+      }
+    }
+  }
+}
+
+.mdo-tab{
+  margin-top: 0;
+}
