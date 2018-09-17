@@ -56,14 +56,13 @@ export default class FormContainer extends React.Component {
 		super(props);
 
 		this.handlers = {};
-		this.state = props.value ? null : getInitialState(props.children);
 
 		this.getChangeHandler = (dataKey) => {
 			if (this.handlers[dataKey]) {
 				return this.handlers[dataKey];
 			}
 
-			const handler = (value) => this.setState({[dataKey]: value});
+			const handler = (value) => this.props.onChange(Object.assign({}, this.props.value, {[dataKey]: value}));
 
 			this.handlers[dataKey] = handler;
 
