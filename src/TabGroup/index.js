@@ -1,28 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Button from '../Button';
+
 const propTypes = {
 	children: PropTypes.node,
 };
 
 export default class TabGroup extends React.Component {
-	state = {
-		active: 0
-	};
+	constructor(props) {
+		super(props);
 
-	handlers = {};
+		this.state = {
+			active: 0
+		};
 
-	changeHandler = (index) => {
-		if (this.handlers[index]) {
-			return this.handlers[index];
-		}
+		const handlers = {};
 
-		const handler = () => this.setState({active: index});
+		this.changeHandler = (index) => {
+			if (handlers[index]) {
+				return handlers[index];
+			}
 
-		this.handlers[index] = handler;
+			const handler = () => this.setState({active: index});
 
-		return handler;
-	};
+			handlers[index] = handler;
+
+			return handler;
+		};
+	}
 
 	render() {
 		const classNames = ['mdo-tabgroup'];
@@ -41,13 +47,14 @@ export default class TabGroup extends React.Component {
 			<div className={classNames.join(' ')}>
 				<div className="mdo-tab-selectors">
 					{labels.map((labelText, i) => (
-						<button
+						<Button
 							key={labelText}
 							className={`mdo-tab-selector${ i === active ? ' mdo-active' : ''}`}
 							onClick={this.changeHandler(i)}
+							type={Button.TYPES.MINIMAL}
 						>
 							{labelText}
-						</button>
+						</Button>
 					))}
 				</div>
 				<div className="mdo-tab-content">
