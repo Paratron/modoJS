@@ -7,15 +7,19 @@ const propTypes = {
 	showHeader: PropTypes.bool,
 	onRowClick: PropTypes.func,
 	data: PropTypes.array,
+	defaultCellComponent: PropTypes.node,
+};
+
+const nullFunc = () => {
 };
 
 const defaultProps = {
 	className: '',
 	children: {},
 	showHeader: true,
-	onRowClick: () => {
-	},
-	data: []
+	onRowClick: nullFunc,
+	data: [],
+	defaultCellComponent: ({children}) => <span>{children}</span>
 };
 
 export default class Table extends React.Component {
@@ -63,7 +67,9 @@ export default class Table extends React.Component {
 			data,
 			children,
 			className,
-			showHeader
+			showHeader,
+			onRowClick,
+			defaultCellComponent: DefaultCellComponent
 		} = this.props;
 
 		const {
@@ -73,6 +79,10 @@ export default class Table extends React.Component {
 
 		const classNames = ['mdo-table'];
 		const columns = Object.keys(children).map(key => Object.assign(children[key], {key}));
+
+		if (onRowClick !== nullFunc) {
+			classNames.push('mdo-clickable');
+		}
 
 		if (className) {
 			classNames.push(className);
@@ -124,9 +134,22 @@ export default class Table extends React.Component {
 								columns.map((c, ci) => (
 									<td className={`mdo-table-cell mdo-column-${c.key}`} key={c.key}>
 										{c.component
-											? <c.component row={row} rowIndex={rowIndex}
-														   columnIndex={ci}>{row[c.key]}</c.component>
-											: <span>{row[c.key]}</span>
+											? <c.component
+												row={row}
+												rowIndex={rowIndex}
+												columnIndex={ci}
+												columnKey={c.key}
+											>
+												{row[c.key]}
+											</c.component>
+											: <DefaultCellComponent
+												row={row}
+												rowIndex={rowIndex}
+												columnIndex={ci}
+												columnKey={c.key}
+											>
+												{row[c.key]}
+											</DefaultCellComponent>
 										}
 									</td>
 								))
