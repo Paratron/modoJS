@@ -48,7 +48,11 @@ const Grid = (props) => {
 	}
 
 	if (mediumGutter) {
+		classNames.push(`medium-grid-padding-${orientation}`);
+	}
 
+	if(largeGutter){
+		classNames.push(`large-grid-padding-${orientation}`);
 	}
 
 	if(fullHeight){
