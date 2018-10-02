@@ -29,11 +29,15 @@ export default class FormSlot extends React.Component {
 		this.prepareChild = (children, restProps) => {
 			if (!this.focus) {
 				this.focus = () => {
-					children.props.onFocus ? children.props.onFocus() : null;
+					if (children.props.onFocus) {
+						children.props.onFocus();
+					}
 					this.setState({hasFocus: true});
 				};
 				this.blur = () => {
-					children.props.onBlur ? children.props.onBlur() : null;
+					if (children.props.onBlur) {
+						children.props.onBlur();
+					}
 					this.setState({hasFocus: false});
 				};
 			}

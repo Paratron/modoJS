@@ -20,17 +20,19 @@
   overflow-x: hidden;
   text-overflow: ellipsis;
 
-  &.mdo-block{
+
+
+  &.mdo-block {
     display: block;
     width: 100%;
     text-align: left;
   }
 
-  a{
+  a {
     color: #666;
     text-decoration: none;
 
-    &:hover{
+    &:hover {
       text-decoration: none;
     }
   }
@@ -100,21 +102,21 @@
   }
 }
 
-.text-right{
-  .mdo-button{
+.text-right {
+  .mdo-button {
     margin-right: 0;
     margin-left: $padding * 2;
   }
 }
 
-.mdo-form-container{
-  .mdo-button{
+.mdo-form-container {
+  .mdo-button {
 
   }
 }
 
-.mdo-dialog-footer{
-  .mdo-button{
+.mdo-dialog-footer {
+  .mdo-button {
     margin-top: 0;
     margin-right: 0;
     margin-left: $padding * 2;

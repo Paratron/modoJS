@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 const propTypes = {};
 
@@ -11,7 +11,6 @@ export default class Card extends React.Component {
 
 		const {
 			className,
-			children
 		} = this.props;
 
 		if (className) {

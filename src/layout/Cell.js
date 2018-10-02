@@ -60,13 +60,11 @@ const makeSize = (size, screen, inject = '') => {
 		case 'auto':
 		case 'shrink':
 			return screen ? `${unitString}-${inject}${size}` : size;
-			break;
 		case '0':
 		case 0:
 			return `hide-for-${unitString}-only`;
 		default:
 			return `${unitString}-${inject}${size}`;
-			break;
 	}
 };
 

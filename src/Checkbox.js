@@ -58,6 +58,7 @@ const Checkbox = (props) => {
 			{...cleanedProps}
 			tabIndex={enabled ? 0 : -1}
 			role="checkbox"
+			aria-checked={!!value}
 			className={classNames.join(' ')}
 			title={tooltip}
 			onClick={enabled ? onChange : null}

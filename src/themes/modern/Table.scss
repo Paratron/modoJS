@@ -10,9 +10,16 @@
     tbody tr {
       cursor: pointer;
 
-      &:hover td{
+      &:hover td {
         background: #eee;
       }
+    }
+  }
+
+  thead {
+    th {
+      font-weight: normal;
+      white-space: nowrap;
     }
   }
 
@@ -23,50 +30,68 @@
   }
 
   th:first-child, td:first-child {
-    padding-left: 90px;
+    padding-left: 10px;
   }
 
   th:last-child, td:last-child {
-    padding-right: 90px;
+    padding-right: 10px;
+  }
+
+  @media screen and (min-width: 1280px) {
+    th:first-child, td:first-child {
+      padding-left: 90px;
+    }
+
+    th:last-child, td:last-child {
+      padding-right: 90px;
+    }
   }
 
   th.mdo-sortable {
     cursor: pointer;
-    position: relative;
-    padding-right: 20px;
 
-    &:before, &:after {
-      position: absolute;
-      top: 50%;
-      right: 5px;
-      transition: opacity .3s;
-    }
+    span {
+      position: relative;
+      padding-right: 25px;
+      display: inline-block;
 
-    &:before {
-      transform: rotate(90deg);
-      padding-right: 5px;
-      content: "⏴";
-    }
+      &:before, &:after {
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        text-align: center;
+        line-height: 16px;
+        font-size: 12px;
+        margin: 0;
+        padding: 0;
+        top: 50%;
+        right: 5px;
+        transition: color .3s;
+        color: #d8d8d8;
+      }
 
-    &:after {
-      transform: rotate(90deg);
-      padding-left: 5px;
-      content: "⏵";
-    }
+      &:before {
+        transform: translate(0, calc(-50% - 3px));
+        content: "⏶";
+      }
 
-    &:hover:after {
-      opacity: .3;
+      &:after {
+        transform: translate(0, calc(-50% + 3px));
+        content: "⏷";
+      }
+
+      &:hover:after {
+        opacity: .3;
+      }
     }
   }
 
-  th.mdo-sortable.mdo-sort-asc:after {
-    content: "⯅";
-    opacity: 1;
+  th.mdo-sortable.mdo-sort-asc span:before {
+    color: #0072ce;
   }
 
-  th.mdo-sortable.mdo-sort-desc:after {
-    content: "⯆";
-    opacity: 1;
+  th.mdo-sortable.mdo-sort-desc span:after {
+    color: #0072ce;
   }
 
   th, td {

@@ -18,19 +18,11 @@ const defaultProps = {
 	enabled: true,
 };
 
-const getInitialState = (children) => {
-	let result = {};
-
-	React.Children.forEach(children, (c) => {
-		if (c.props.name) {
-			result[c.props.name] = c.props.value || null;
-		}
-	});
-
-	return result;
-};
-
 const prepareChildren = (compInstance, children, inValue) => React.Children.map(children, (c) => {
+	if(!c){
+		return c;
+	}
+
 	const name = c.props.name;
 
 	if (!name) {

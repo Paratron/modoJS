@@ -14,6 +14,7 @@ import TextInput from './TextInput';
 import Toolbar from './Toolbar';
 import Tab from './Tab';
 import TabGroup from './TabGroup';
+import Checkbox from './Checkbox';
 
 import {
 	AppHeader,
@@ -51,4 +52,5 @@ export {
 	VerticalSpace,
 	Tab,
 	TabGroup,
+	Checkbox
 };

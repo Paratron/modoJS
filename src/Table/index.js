@@ -7,7 +7,7 @@ const propTypes = {
 	showHeader: PropTypes.bool,
 	onRowClick: PropTypes.func,
 	data: PropTypes.array,
-	defaultCellComponent: PropTypes.node,
+	defaultCellComponent: PropTypes.any,
 };
 
 const nullFunc = () => {
@@ -19,7 +19,7 @@ const defaultProps = {
 	showHeader: true,
 	onRowClick: nullFunc,
 	data: [],
-	defaultCellComponent: ({children}) => <span>{children}</span>
+	defaultCellComponent: ({row, columnKey}) => <span>{row[columnKey]}</span>
 };
 
 export default class Table extends React.Component {
@@ -88,10 +88,8 @@ export default class Table extends React.Component {
 			classNames.push(className);
 		}
 
-		if (sortField) {
-			data.sort((rowA, rowB) => {
-				return children[sortField].sortFunc(rowA[sortField], rowB[sortField]);
-			});
+		if (sortField && children[sortField].sortFunc) {
+			data.sort((rowA, rowB) => children[sortField].sortFunc(rowA[sortField], rowB[sortField]));
 			if (sortDirection === -1) {
 				data.reverse();
 			}
@@ -115,7 +113,7 @@ export default class Table extends React.Component {
 								classNames.push('mdo-sort-' + (sortDirection === 1 ? 'asc' : 'desc'));
 							}
 							return <th className={classNames.join(' ')} onClick={this.updateSort(c.key)}
-									   key={c.key}>{c.title}</th>;
+									   key={c.key}><span>{c.title}</span></th>;
 						})}
 					</tr>
 					</thead>
@@ -179,3 +177,12 @@ Table.basicSort = (a, b) => {
 			? -1
 			: 0;
 };
+
+/**
+ * This does the same sort like basicSort, but will enforce
+ * value treatment as integers.
+ * @param a
+ * @param b
+ * @returns {number}
+ */
+Table.numericSort = (a, b) => Table.basicSort(parseInt(a, 10), parseInt(b, 10));
