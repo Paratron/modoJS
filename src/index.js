@@ -15,6 +15,9 @@ import Toolbar from './Toolbar';
 import Tab from './Tab';
 import TabGroup from './TabGroup';
 import Checkbox from './Checkbox';
+import RadioButton from './RadioButton';
+import RadioSelector from './RadioSelector';
+import prompts from './utils/prompts';
 
 import {
 	AppHeader,
@@ -52,5 +55,8 @@ export {
 	VerticalSpace,
 	Tab,
 	TabGroup,
-	Checkbox
+	Checkbox,
+	RadioSelector,
+	RadioButton,
+	prompts
 };
