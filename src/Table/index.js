@@ -6,7 +6,7 @@ const propTypes = {
 	children: PropTypes.object,
 	showHeader: PropTypes.bool,
 	onRowClick: PropTypes.func,
-	data: PropTypes.array,
+	data: PropTypes.oneOfType([PropTypes.array, PropTypes.instanceOf(Map)]),
 	defaultCellComponent: PropTypes.any,
 };
 
@@ -64,13 +64,17 @@ export default class Table extends React.Component {
 
 	render() {
 		const {
-			data,
+			data: inData,
 			children,
 			className,
 			showHeader,
 			onRowClick,
 			defaultCellComponent: DefaultCellComponent
 		} = this.props;
+
+		const data = (inData instanceof Map)
+			? [...inData.values()]
+			: inData;
 
 		const {
 			sortField,
