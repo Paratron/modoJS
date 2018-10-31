@@ -14,36 +14,40 @@ const defaultProps = {
 	className: '',
 	value: null,
 	enabled: true,
-	onChange: () => {},
+	onChange: () => {
+	},
 };
 
 export default class RadioSelector extends React.Component {
-	clickHandlers = {};
+	constructor(props) {
+		super(props);
+		this.clickHandlers = {};
 
-	handleChange = (index) => {
-		const {
-			items,
-			onChange,
-		} = this.props;
+		this.handleChange = (index) => {
+			const {
+				items,
+				onChange,
+			} = this.props;
 
-		const nextValue = items instanceof Array ? index : Object.keys(items)[index];
+			const nextValue = items instanceof Array ? index : Object.keys(items)[index];
 
-		onChange(nextValue);
-	};
+			onChange(nextValue);
+		};
 
-	handleClick = (index) => {
-		const key = `${index}`;
+		this.handleClick = (index) => {
+			const key = `${index}`;
 
-		if(this.clickHandlers[key]){
-			return this.clickHandlers[key];
-		}
+			if (this.clickHandlers[key]) {
+				return this.clickHandlers[key];
+			}
 
-		const clickHandler = () => this.handleChange(index);
+			const clickHandler = () => this.handleChange(index);
 
-		this.clickHandlers[key] = clickHandler;
+			this.clickHandlers[key] = clickHandler;
 
-		return clickHandler;
-	};
+			return clickHandler;
+		};
+	}
 
 	render() {
 		const classNames = ['mdo-radioselector'];
@@ -59,18 +63,18 @@ export default class RadioSelector extends React.Component {
 		const itemKeys = isArr ? items.map((v, i) => i) : Object.keys(items);
 		const activeIndex = isArr ? value : itemKeys.indexOf(value);
 
-		if(className){
+		if (className) {
 			classNames.push(className);
 		}
 
 		return (
 			<div className={classNames.join(' ')}>
-				{ itemLabels.map((label, index) => <RadioButton
+				{itemLabels.map((label, index) => <RadioButton
 					key={index}
 					label={label}
 					checked={index === activeIndex}
 					onClick={this.handleClick(index)}
-				/> ) }
+				/>)}
 			</div>
 		);
 	}
