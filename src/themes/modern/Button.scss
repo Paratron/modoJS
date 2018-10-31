@@ -1,4 +1,4 @@
-@import "_vars";
+@import "vars";
 
 .mdo-button {
   display: inline-block;
@@ -93,6 +93,12 @@
       width: 24px;
       height: 24px;
     }
+  }
+
+  &.mdo-disabled{
+    background: #ddd;
+    pointer-events: none;
+    opacity: .8;
   }
 }
 

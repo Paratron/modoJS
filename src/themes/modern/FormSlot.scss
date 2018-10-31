@@ -8,8 +8,8 @@
     opacity: 0;
   }
 
-  label{
-    span{
+  & > label{
+    & > span{
       display: inline-block;
       position: absolute;
       top: $padding + ($padding * 0.1);
@@ -25,7 +25,7 @@
   }
 
   &.mdo-focused, &.mdo-filled{
-    span{
+    & > label > span{
       transform: translateY(-175%) scale(.75);
     }
   }

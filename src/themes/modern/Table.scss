@@ -30,21 +30,11 @@
   }
 
   th:first-child, td:first-child {
-    padding-left: 10px;
+    padding-left: $padding;
   }
 
   th:last-child, td:last-child {
-    padding-right: 10px;
-  }
-
-  @media screen and (min-width: 1280px) {
-    th:first-child, td:first-child {
-      padding-left: 90px;
-    }
-
-    th:last-child, td:last-child {
-      padding-right: 90px;
-    }
+    padding-right: $padding;
   }
 
   th.mdo-sortable {
