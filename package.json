@@ -21,16 +21,16 @@
   },
   "homepage": "https://github.com/Paratron/modoJS#readme",
   "dependencies": {
-    "prop-types": "^15.6.2",
-    "react": "^16.4.2"
+    "prop-types": "15.6.2",
+    "react": "16.4.2"
   },
   "devDependencies": {
-    "@babel/cli": "^7.0.0",
-    "@babel/core": "^7.0.0",
-    "@babel/plugin-transform-react-jsx": "^7.0.0",
-    "@babel/preset-env": "^7.0.0",
-    "@babel/preset-react": "^7.0.0",
-    "foundation-sites": "^6.4.3",
-    "node-sass": "^4.9.2"
+    "@babel/cli": "7.0.0",
+    "@babel/core": "7.0.0",
+    "@babel/plugin-transform-react-jsx": "7.0.0",
+    "@babel/preset-env": "7.0.0",
+    "@babel/preset-react": "7.0.0",
+    "foundation-sites": "6.4.3",
+    "node-sass": "4.9.2"
   }
 }
