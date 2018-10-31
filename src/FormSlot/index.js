@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import {FormContext} from '../FormContainer';
+
 const propTypes = {
-	value: PropTypes.any,
 	children: PropTypes.node,
 	className: PropTypes.string,
-	onChange: PropTypes.func,
 	onFocus: PropTypes.func,
 	onBlur: PropTypes.func,
 	enabled: PropTypes.bool,
@@ -54,6 +54,7 @@ export default class FormSlot extends React.Component {
 			className,
 			enabled,
 			label,
+			name,
 			...restProps
 		} = this.props;
 
@@ -69,23 +70,42 @@ export default class FormSlot extends React.Component {
 			classNames.push('mdo-focused');
 		}
 
-		if (restProps.value !== undefined && restProps.value !== null && restProps.value !== '') {
-			classNames.push('mdo-filled');
-		}
-
-		if (className) {
-			classNames.push(className);
-		}
-
-		const preparedChild = this.prepareChild(children, restProps);
-
 		return (
-			<div className={classNames.join(' ')}>
-				<label>
-					<span>{label}</span>
-					{preparedChild}
-				</label>
-			</div>
+
+			<FormContext.Consumer>
+				{(context) => {
+					if (!context) {
+						throw new Error('FormSlot components can only be placed somewhere inside a FormContainer component.');
+					}
+
+					const preparedChild = this.prepareChild(
+						children,
+						Object.assign(restProps, {
+							value: context.value[name],
+							onChange: context.getChangeHandler(name)
+						})
+					);
+
+					const val = context.value[name];
+
+					if (val !== undefined && val !== null && val !== '') {
+						classNames.push('mdo-filled');
+					}
+
+					if (className) {
+						classNames.push(className);
+					}
+
+					return (
+						<div className={classNames.join(' ')}>
+							<label>
+								<span>{label}</span>
+								{preparedChild}
+							</label>
+						</div>
+					);
+				}}
+			</FormContext.Consumer>
 		);
 	}
 }
