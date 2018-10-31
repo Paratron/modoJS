@@ -1,15 +1,7 @@
 {
   "name": "modoJS",
-  "version": "1.1.3",
-  "description": "modoJS enables you to create the user interface of your Backbone driven web application.",
-  "dependencies": {
-    "grunt": "^0.4.1",
-    "grunt-contrib-less": "^0.6.1",
-    "grunt-contrib-concat": "^0.3.0",
-    "grunt-contrib-uglify": "^0.2.0",
-    "grunt-contrib-compress": "^0.5.0"
-  },
-  "devDependencies": {},
+  "version": "2.0.0 alpha",
+  "description": "modoJS enables you to create the user interface of your ReactJS driven web application.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
