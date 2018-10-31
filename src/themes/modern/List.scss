@@ -1,0 +1,63 @@
+@import "_vars";
+
+.mdo-list {
+  margin-left: -$padding;
+  margin-right: -$padding;
+  margin-top: -$padding;
+
+  .mdo-list-item {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: $padding;
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    transition: background-color .3s;
+    margin-top: 0;
+
+    &:hover{
+      background: #eee;
+    }
+
+    &.mdo-has-icon {
+      font-size: 0;
+
+      .mdo-icon{
+        margin-right: $padding;
+      }
+
+      .content {
+        display: inline-block;
+        margin-top: 0;
+        line-height: 24px;
+        height: 24px;
+        font-size: 1rem;
+        vertical-align: top;
+        width: calc(100% - 24px - #{$padding});
+      }
+    }
+  }
+
+  &.mdo-clickable {
+    .mdo-list-item {
+      cursor: pointer;
+      background: transparent;
+      transition: background-color .3s;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, .1);
+      }
+
+      &.mdo-active {
+        background-color: rgba(0, 0, 0, .2);
+      }
+    }
+  }
+}
+
+.mdo-card{
+  & > .mdo-list{
+    margin: -($padding * 0.5);
+  }
+}

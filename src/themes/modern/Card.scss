@@ -1,0 +1,13 @@
+@import "_vars";
+
+.mdo-card{
+  display: inline-block;
+  margin: $padding;
+  border-radius: 2px;
+  background: #fff;
+  box-shadow: rgba(0,0,0,.12) 0 1px 6px, rgba(0,0,0,.12) 0 1px 4px;
+  padding: $padding * 0.5;
+  box-sizing: border-box;
+  vertical-align: top;
+  width: calc(100% - #{$padding * 2});
+}

@@ -1,0 +1,12 @@
+@import "_vars";
+
+.mdo-textinput{
+  box-sizing: border-box;
+  padding: $padding * 0.5;
+  border-radius: $padding * 0.3;
+  border: #ccc solid 1px;
+  outline: none;
+  display: block;
+  width: 100%;
+  max-width: 100%;
+}

@@ -1,18 +1,36 @@
 {
-  "name": "modoJS",
-  "version": "2.0.0 alpha",
-  "description": "modoJS enables you to create the user interface of your ReactJS driven web application.",
+  "name": "modojs",
+  "version": "2.0.0",
+  "description": "Component collection for React applications.",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm run build:js && npm run build:style && robocopy ./src ./dist package.json || echo 'done'",
+    "build:js": "babel ./src --out-dir ./dist -s inline",
+    "watch": "babel ./src/**/* --watch --out-dir ./dist -s inline",
+    "build:style": "node-sass src/modo.scss -o dist && node-sass src/themes/modern.scss -o dist/themes"
   },
   "repository": {
     "type": "git",
-    "url": "ssh://git@github.com:Paratron/modoJS.git"
+    "url": "git+https://github.com/Paratron/modoJS.git"
   },
-  "author": "Christian Engel <hello@wearekiss.com>",
+  "author": "Christian Engel @paratron",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Paratron/modoJS/issues"
   },
-  "homepage": "http://modojs.com"
+  "homepage": "https://github.com/Paratron/modoJS#readme",
+  "dependencies": {
+    "prop-types": "^15.6.2",
+    "react": "^16.4.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-transform-react-jsx": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
+    "foundation-sites": "^6.4.3",
+    "node-sass": "^4.9.2"
+  }
 }

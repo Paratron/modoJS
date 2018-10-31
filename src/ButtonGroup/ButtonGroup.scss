@@ -1,0 +1,13 @@
+.mdo-buttongroup{
+  @media screen and (max-width: 640px){
+    .mdo-button{
+      display: block;
+      margin: 0;
+      margin-bottom: 10px;
+
+      &:last-child{
+        margin-bottom: 0;
+      }
+    }
+  }
+}

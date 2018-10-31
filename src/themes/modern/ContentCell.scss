@@ -1,0 +1,15 @@
+@import "vars";
+
+.mdo-content-cell {
+  padding: $padding;
+  overflow-y: auto;
+
+  @media screen and (min-width: 1280px) {
+    padding-left: 90px;
+    padding-right: 90px;
+  }
+}
+
+.mdo-appbar + .mdo-content-cell {
+  padding-top: 60px;
+}

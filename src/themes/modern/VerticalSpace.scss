@@ -1,0 +1,23 @@
+@import "_vars";
+
+.mdo-verticalspace {
+  &.mdo-space-1 {
+    height: $padding;
+  }
+
+  &.mdo-space-2 {
+    height: $padding * 2;
+  }
+
+  &.mdo-space-3 {
+    height: $padding * 3;
+  }
+
+  &.mdo-space-4 {
+    height: $padding * 4;
+  }
+
+  &.mdo-space-5 {
+    height: $padding * 5;
+  }
+}

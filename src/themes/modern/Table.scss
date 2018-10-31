@@ -1,0 +1,90 @@
+@import "vars";
+
+.mdo-table {
+  border-collapse: collapse;
+  width: calc(100% + #{$padding * 2});
+  margin-left: -$padding;
+  margin-right: -$padding * 2;
+
+  &.mdo-clickable {
+    tbody tr {
+      cursor: pointer;
+
+      &:hover td {
+        background: #eee;
+      }
+    }
+  }
+
+  thead {
+    th {
+      font-weight: normal;
+      white-space: nowrap;
+    }
+  }
+
+  tr:nth-child(2n-1) {
+    td {
+      background: #f1f1f1;
+    }
+  }
+
+  th:first-child, td:first-child {
+    padding-left: $padding;
+  }
+
+  th:last-child, td:last-child {
+    padding-right: $padding;
+  }
+
+  th.mdo-sortable {
+    cursor: pointer;
+
+    span {
+      position: relative;
+      padding-right: 25px;
+      display: inline-block;
+
+      &:before, &:after {
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        text-align: center;
+        line-height: 16px;
+        font-size: 12px;
+        margin: 0;
+        padding: 0;
+        top: 50%;
+        right: 5px;
+        transition: color .3s;
+        color: #d8d8d8;
+      }
+
+      &:before {
+        transform: translate(0, calc(-50% - 3px));
+        content: "⏶";
+      }
+
+      &:after {
+        transform: translate(0, calc(-50% + 3px));
+        content: "⏷";
+      }
+
+      &:hover:after {
+        opacity: .3;
+      }
+    }
+  }
+
+  th.mdo-sortable.mdo-sort-asc span:before {
+    color: #0072ce;
+  }
+
+  th.mdo-sortable.mdo-sort-desc span:after {
+    color: #0072ce;
+  }
+
+  th, td {
+    padding: 5px;
+  }
+}

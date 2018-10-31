@@ -1,0 +1,22 @@
+@import "vars";
+
+html, body {
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+body > div * + * {
+  margin-top: $padding;
+  margin-bottom: 0;
+}
+
+body {
+  font-family: Roboto, sans-serif;
+}
+
+.tme-app-workspace {
+  padding: $padding;
+}
