@@ -13,6 +13,7 @@ const propTypes = {
 	onBlur: PropTypes.func,
 	/** Callback to be called onFocus AND onBlur. A boolean will be passed to the cb to tell if the comp has focus. */
 	onFocusBlur: PropTypes.func,
+	onEnter: PropTypes.func,
 	className: PropTypes.string,
 	enabled: PropTypes.bool,
 	multiline: PropTypes.bool,
@@ -28,6 +29,7 @@ const defaultProps = {
 	onFocus: undefined,
 	onBlur: undefined,
 	onFocusBlur: undefined,
+	onEnter: undefined,
 	className: null,
 	enabled: true,
 	multiline: false,
@@ -68,7 +70,17 @@ export default class TextInput extends DynamicHandlerComponent {
 			if (this.props.onFocusBlur) {
 				this.props.onFocusBlur(false);
 			}
-		}
+		};
+
+		this.handleKeyDown = (e) => {
+			if(!this.props.onEnter){
+				return;
+			}
+
+			if(e.key === 'Enter'){
+				this.props.onEnter();
+			}
+		};
 	}
 
 	componentDidMount() {
@@ -134,6 +146,7 @@ export default class TextInput extends DynamicHandlerComponent {
 				onChange={this.handleChange}
 				onFocus={this.handleFocus}
 				onBlur={this.handleBlur}
+				onKeyDown={this.handleKeyDown}
 				placeholder={placeholder}
 				ref={(elm) => this.ref = elm}
 				value={value === null ? '' : value}
