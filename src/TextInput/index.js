@@ -5,7 +5,7 @@ import {cloneWithoutProps} from "../utils/object";
 import DynamicHandlerComponent from "../utils/DynamicHandlerComponent";
 
 const propTypes = {
-	value: PropTypes.string,
+	value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 	type: PropTypes.string,
 	placeholder: PropTypes.string,
 	onChange: PropTypes.func,
@@ -133,7 +133,7 @@ export default class TextInput extends DynamicHandlerComponent {
 					onFocus={this.handleFocus}
 					onBlur={this.handleBlur}
 					ref={(elm) => this.ref = elm}
-					value={value === null ? '' : value}
+					value={(value === null || value === undefined) ? '' : value}
 					placeholder={placeholder}
 				/>
 			);
@@ -149,7 +149,7 @@ export default class TextInput extends DynamicHandlerComponent {
 				onKeyDown={this.handleKeyDown}
 				placeholder={placeholder}
 				ref={(elm) => this.ref = elm}
-				value={value === null ? '' : value}
+				value={(value === null || value === undefined) ? '' : value}
 			/>
 		);
 	}
