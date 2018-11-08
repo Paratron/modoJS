@@ -1,0 +1,12 @@
+.mdo-vertically-centered{
+  height: 100%;
+  position: relative;
+
+  &.has-overheight{
+    & > div{
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+}

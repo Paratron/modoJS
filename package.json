@@ -22,7 +22,7 @@
   "homepage": "https://github.com/Paratron/modoJS#readme",
   "dependencies": {
     "prop-types": "15.6.2",
-    "react": "16.4.2"
+    "react": "16.7.0-alpha.0"
   },
   "devDependencies": {
     "@babel/cli": "7.0.0",
@@ -31,6 +31,6 @@
     "@babel/preset-env": "7.0.0",
     "@babel/preset-react": "7.0.0",
     "foundation-sites": "6.4.3",
-    "node-sass": "4.9.2"
+    "node-sass": "4.9.4"
   }
 }

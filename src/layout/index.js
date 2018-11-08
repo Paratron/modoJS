@@ -6,6 +6,9 @@ import Grid from './Grid';
 import GridContainer from './GridContainer';
 import GridFrame from './GridFrame';
 import VerticalSpace from './VerticalSpace';
+import FullScreenApp from './FullScreenApp';
+import ButtonArea from './ButtonArea';
+import VerticallyCentered from './VerticallyCentered';
 
 export {
 	AppHeader,
@@ -16,4 +19,7 @@ export {
 	GridContainer,
 	GridFrame,
 	VerticalSpace,
+	FullScreenApp,
+	ButtonArea,
+	VerticallyCentered,
 };

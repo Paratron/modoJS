@@ -4,9 +4,11 @@ import PropTypes from 'prop-types';
 const propTypes = {
 	name: PropTypes.string,
 	value: PropTypes.object,
-	children: PropTypes.node,
+	initValue: PropTypes.object,
+	children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
 	className: PropTypes.string,
 	onChange: PropTypes.func,
+	onSubmit: PropTypes.func,
 	enabled: PropTypes.bool,
 };
 
@@ -15,8 +17,6 @@ const defaultProps = {
 	value: {},
 	children: null,
 	className: '',
-	onChange: () => {
-	},
 	enabled: true,
 };
 
@@ -26,15 +26,16 @@ export default class FormContainer extends React.Component {
 	constructor(props) {
 		super(props);
 
+		this.state = props.initValue ? props.initValue : {};
 		this.handlers = {};
 		this.upperContext = null;
 
 		this.initUpperContext = (context) => {
-			if(!context){
+			if (!context) {
 				return;
 			}
 
-			if(this.upperContext){
+			if (this.upperContext) {
 				return;
 			}
 
@@ -48,17 +49,30 @@ export default class FormContainer extends React.Component {
 			}
 
 			const handler = (value) => {
-				if(this.upperContext){
+				if (this.upperContext) {
 					this.upperChangeHandler(Object.assign({}, this.upperContext.value[this.props.name], {[dataKey]: value}));
 					return;
 				}
-				this.props.onChange(Object.assign({}, this.props.value, {[dataKey]: value}))
+				if (this.props.onChange) {
+					this.props.onChange(Object.assign({}, this.props.value, {[dataKey]: value}));
+					return;
+				}
+				this.setState(Object.assign({}, this.state, {[dataKey]: value}));
 			};
 
 			this.handlers[dataKey] = handler;
 
 			return handler;
 		};
+
+		// Its because the function will be passed to sub components and should be named.
+		function formContainerSubmit() {
+			if (props.onSubmit) {
+				props.onSubmit(this.state);
+			}
+		}
+
+		this.handleSubmit = formContainerSubmit.bind(this);
 	}
 
 	render() {
@@ -68,8 +82,12 @@ export default class FormContainer extends React.Component {
 			children,
 			value,
 			name,
-			className
+			className,
+			onChange,
+			onSubmit,
 		} = this.props;
+
+		const stateValue = this.state;
 
 		if (className) {
 			classNames.push(className);
@@ -86,9 +104,17 @@ export default class FormContainer extends React.Component {
 							getChangeHandler: this.getChangeHandler
 						};
 
+						if (!context) {
+							if (onChange) {
+								contextValue.value = value;
+							} else {
+								contextValue.value = stateValue;
+							}
+						}
+
 						return (
 							<FormContext.Provider value={contextValue}>
-								{children}
+								{onSubmit ? children({doSubmit: this.handleSubmit}) : children}
 							</FormContext.Provider>
 						);
 					}}
