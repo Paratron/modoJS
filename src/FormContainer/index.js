@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
@@ -22,107 +22,72 @@ const defaultProps = {
 
 export const FormContext = React.createContext();
 
-export default class FormContainer extends React.Component {
-	constructor(props) {
-		super(props);
+const FormContainer = (props) => {
+	const {
+		name,
+		value,
+		initValue,
+		children,
+		className,
+		enabled,
+		onSubmit,
+		onChange,
+	} = props;
 
-		this.state = props.initValue ? props.initValue : {};
-		this.handlers = {};
-		this.upperContext = null;
+	const [valueBuffer, setValueBuffer] = useState(initValue);
 
-		this.initUpperContext = (context) => {
-			if (!context) {
-				return;
-			}
+	const classNames = ['mdo-form-container'];
 
-			if (this.upperContext) {
-				return;
-			}
-
-			this.upperContext = context;
-			this.upperChangeHandler = context.getChangeHandler(this.props.name);
-		};
-
-		this.getChangeHandler = (dataKey) => {
-			if (this.handlers[dataKey]) {
-				return this.handlers[dataKey];
-			}
-
-			const handler = (value) => {
-				if (this.upperContext) {
-					this.upperChangeHandler(Object.assign({}, this.upperContext.value[this.props.name], {[dataKey]: value}));
-					return;
-				}
-				if (this.props.onChange) {
-					this.props.onChange(Object.assign({}, this.props.value, {[dataKey]: value}));
-					return;
-				}
-				this.setState(Object.assign({}, this.state, {[dataKey]: value}));
-			};
-
-			this.handlers[dataKey] = handler;
-
-			return handler;
-		};
-
-		// Its because the function will be passed to sub components and should be named.
-		function formContainerSubmit() {
-			if (props.onSubmit) {
-				props.onSubmit(this.state);
-			}
-		}
-
-		this.handleSubmit = formContainerSubmit.bind(this);
+	if (!enabled) {
+		classNames.push('mdo-disabled');
 	}
 
-	render() {
-		const classNames = ['mdo-form-container'];
+	if (className) {
+		classNames.push(className);
+	}
 
-		const {
-			children,
-			value,
-			name,
-			className,
-			onChange,
-			onSubmit,
-		} = this.props;
+	const handleSubmit = () => props.onSubmit(valueBuffer);
 
-		const stateValue = this.state;
-
-		if (className) {
-			classNames.push(className);
-		}
-
-		return (
-			<div className={classNames.join(' ')}>
-				<FormContext.Consumer>
-					{(context) => {
-						this.initUpperContext(context);
-
-						const contextValue = {
-							value: context ? context.value[name] : value,
-							getChangeHandler: this.getChangeHandler
-						};
-
-						if (!context) {
-							if (onChange) {
-								contextValue.value = value;
-							} else {
-								contextValue.value = stateValue;
+	return (
+		<div className={classNames.join(' ')}>
+			<FormContext.Consumer>
+				{(context) => {
+					const subContext = context
+						? {
+							value: context.value ? context.value[name] : {},
+							changeHandler: (key) => (value) => {
+								const newValue = Object.assign({}, context.value ? context.value[name] : {}, {[key]: value});
+								context.changeHandler(name)(newValue);
 							}
 						}
+						: initValue
+							? {
+								value: valueBuffer,
+								changeHandler: (key) => (value) => {
+									const newValue = Object.assign({}, valueBuffer, {[key]: value});
+									setValueBuffer(newValue);
+								}
+							}
+							: {
+								value,
+								changeHandler: (key) => (val) => {
+									const newValue = Object.assign({}, value, {[key]: val});
+									onChange(newValue);
+								}
+							};
 
-						return (
-							<FormContext.Provider value={contextValue}>
-								{onSubmit ? children({doSubmit: this.handleSubmit}) : children}
-							</FormContext.Provider>
-						);
-					}}
-				</FormContext.Consumer>
-			</div>
-		);
-	}
-}
+					return (
+						<FormContext.Provider value={subContext}>
+							{onSubmit ? children({doSubmit: handleSubmit}) : children}
+						</FormContext.Provider>
+					);
+				}}
+			</FormContext.Consumer>
+		</div>
+	);
+};
 
 FormContainer.propTypes = propTypes;
 FormContainer.defaultProps = defaultProps;
+
+export default FormContainer;

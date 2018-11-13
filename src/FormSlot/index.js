@@ -4,16 +4,20 @@ import PropTypes from 'prop-types';
 import {FormContext} from '../FormContainer';
 
 const propTypes = {
-	children: PropTypes.node,
+	children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
 	className: PropTypes.string,
 	onFocus: PropTypes.func,
 	onBlur: PropTypes.func,
 	enabled: PropTypes.bool,
+	manual: PropTypes.bool,
+	staticLabel: PropTypes.bool,
 };
 
 const defaultProps = {
 	className: '',
 	enabled: true,
+	manual: false,
+	staticLabel: false,
 };
 
 export default class FormSlot extends React.Component {
@@ -55,12 +59,18 @@ export default class FormSlot extends React.Component {
 			enabled,
 			label,
 			name,
+			manual,
+			staticLabel,
 			...restProps
 		} = this.props;
 
 		const {
 			hasFocus
 		} = this.state;
+
+		if(staticLabel){
+			classNames.push('mdo-staticLabel');
+		}
 
 		if (!enabled) {
 			classNames.push('mdo-disabled');
@@ -78,32 +88,36 @@ export default class FormSlot extends React.Component {
 						throw new Error('FormSlot components can only be placed somewhere inside a FormContainer component.');
 					}
 
-					const preparedChild = this.prepareChild(
-						children,
-						Object.assign(restProps, {
-							value: context.value[name],
-							onChange: context.getChangeHandler(name)
-						})
-					);
-
 					const val = context.value[name];
 
-					if (val !== undefined && val !== null && val !== '') {
-						classNames.push('mdo-filled');
-					}
+					if (manual) {
+						return children(val, context.changeHandler(name));
+					} else {
+						const preparedChild = this.prepareChild(
+							children,
+							Object.assign(restProps, {
+								value: context.value[name],
+								onChange: context.changeHandler(name)
+							})
+						);
 
-					if (className) {
-						classNames.push(className);
-					}
+						if (val !== undefined && val !== null && val !== '') {
+							classNames.push('mdo-filled');
+						}
 
-					return (
-						<div className={classNames.join(' ')}>
-							<label>
-								<span>{label}</span>
-								{preparedChild}
-							</label>
-						</div>
-					);
+						if (className) {
+							classNames.push(className);
+						}
+
+						return (
+							<div className={classNames.join(' ')}>
+								<label className="mdo-formslot-label">
+									<span className="mdo-formslot-label-inner">{label}</span>
+									{preparedChild}
+								</label>
+							</div>
+						);
+					}
 				}}
 			</FormContext.Consumer>
 		);
