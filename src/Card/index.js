@@ -1,27 +1,29 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
-const propTypes = {};
+const propTypes = {
+	className: PropTypes.string,
+};
 
 const defaultProps = {};
 
-export default class Card extends React.Component {
-	render() {
-		const classNames = ['mdo-card'];
+const Card = (props) => {
+	const classNames = ['mdo-card'];
 
-		const {
-			className,
-		} = this.props;
+	const {
+		className,
+	} = props;
 
-		if (className) {
-			classNames.push(className);
-		}
-
-		return (
-			<div {...this.props} className={classNames.join(' ')} />
-		);
+	if (className) {
+		classNames.push(className);
 	}
-}
+
+	return (
+		<div {...props} className={classNames.join(' ')}/>
+	);
+};
 
 Card.propTypes = propTypes;
 Card.defaultProps = defaultProps;
+
+export default Card;
