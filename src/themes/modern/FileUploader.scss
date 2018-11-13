@@ -1,0 +1,61 @@
+.mdo-fileUploader{
+  position: relative;
+  overflow: hidden;
+  line-height: 32px;
+
+  .mdo-button{
+    margin-right: 10px;
+  }
+
+  &:hover mdo-button{
+
+  }
+
+  input{
+    position: absolute;
+    display: block;
+    opacity: 0;
+    margin: 0;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 200%;
+    cursor: pointer;
+  }
+  
+  .filename, .progress{
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: 0;
+  }
+
+  .filename{
+    font-weight: bold;
+  }
+
+  .progress{
+    opacity: 0;
+    transition: opacity .3s;
+    padding-left: 10px;
+
+    &:before{
+      content: " - ";
+    }
+  }
+
+  &.mdo-uploading{
+    .progress{
+      opacity: 1;
+    }
+  }
+
+  &.mdo-upload-done{
+    .mdo-button{
+      background: green;
+    }
+  }
+
+  &.mdo-upload-error{
+    color: red;
+  }
+}

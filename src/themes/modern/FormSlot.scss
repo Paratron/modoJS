@@ -1,32 +1,50 @@
 @import "vars";
 
-.mdo-formslot{
+.mdo-formslot {
   position: relative;
 
-  & ::placeholder{
+  & ::placeholder {
     color: transparent;
     opacity: 0;
   }
 
-  & > label{
-    & > span{
-      display: inline-block;
-      position: absolute;
-      top: $padding + ($padding * 0.1);
-      pointer-events: none;
-      left: ($padding/2) - 2px;
-      transform-origin: bottom left;
-      background: #fff;
-      transform: translateY(-50%) scale(1);
-      transition: transform .15s;
-      padding: 0 5px;
-      line-height: 1;
-    }
+  .mdo-formslot-label-inner {
+    display: inline-block;
+    position: absolute;
+    top: $padding + ($padding * 0.1);
+    pointer-events: none;
+    left: ($padding/2) - 2px;
+    transform-origin: bottom left;
+    background: #fff;
+    transform: translateY(-50%) scale(1);
+    transition: transform .15s;
+    padding: 0 5px;
+    line-height: 1;
   }
 
-  &.mdo-focused, &.mdo-filled{
-    & > label > span{
+  &.mdo-focused, &.mdo-filled {
+    .mdo-formslot-label-inner {
       transform: translateY(-175%) scale(.75);
     }
   }
+
+  &.mdo-staticLabel {
+    .mdo-formslot-label-inner {
+      position: static;
+      font-size: .75em;
+
+      & + * {
+        margin-top: 0;
+      }
+    }
+  }
+
+  .mdo-padded {
+    padding-top: 16px;
+
+    .mdo-grid-cell {
+      padding: 0 0.9375rem;
+    }
+  }
+
 }

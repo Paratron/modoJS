@@ -20,3 +20,31 @@ body {
 .tme-app-workspace {
   padding: $padding;
 }
+
+.mdo-fullscreen {
+  body, #root {
+    height: 100vh;
+
+    & > div{
+      height: 100%;
+    }
+  }
+
+  .mdo-grid {
+    & > div {
+      height: 100%;
+    }
+
+    .mdo-grid, .mdo-grid-cell {
+      height: auto;
+
+      &.mdo-fullHeight{
+        height: 100%;
+      }
+    }
+
+    .appFrame {
+      height: 100%;
+    }
+  }
+}
