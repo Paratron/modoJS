@@ -17,6 +17,7 @@ import TabGroup from './TabGroup';
 import Checkbox from './Checkbox';
 import RadioButton from './RadioButton';
 import RadioSelector from './RadioSelector';
+import FileUploader from './FileUploader';
 // import prompts from './utils/prompts';
 
 import {
@@ -58,5 +59,6 @@ export {
 	Checkbox,
 	RadioSelector,
 	RadioButton,
+	FileUploader
 	// prompts
 };
