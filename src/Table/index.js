@@ -6,8 +6,11 @@ const propTypes = {
 	children: PropTypes.object,
 	showHeader: PropTypes.bool,
 	onRowClick: PropTypes.func,
+	onSort: PropTypes.func,
 	data: PropTypes.oneOfType([PropTypes.array, PropTypes.instanceOf(Map)]),
 	defaultCellComponent: PropTypes.any,
+	start: PropTypes.number,
+	limit: PropTypes.number,
 };
 
 const nullFunc = () => {
@@ -18,7 +21,10 @@ const defaultProps = {
 	children: {},
 	showHeader: true,
 	onRowClick: nullFunc,
+	onSort: nullFunc,
 	data: [],
+	start: 0,
+	limit: 0,
 	defaultCellComponent: ({row, columnKey}) => <span>{row[columnKey]}</span>
 };
 
@@ -47,6 +53,7 @@ export default class Table extends React.Component {
 					return;
 				}
 				this.setState({sortField: key, sortDirection: 1});
+				props.onSort();
 			};
 
 			this.sortCallbacks[key] = cb;
@@ -69,17 +76,28 @@ export default class Table extends React.Component {
 			className,
 			showHeader,
 			onRowClick,
+			start,
+			limit,
 			defaultCellComponent: DefaultCellComponent
 		} = this.props;
 
-		const data = (inData instanceof Map)
+		const fullData = (inData instanceof Map)
 			? [...inData.values()]
-			: inData;
+			: inData.slice();
 
 		const {
 			sortField,
 			sortDirection
 		} = this.state;
+
+		if (sortField && children[sortField].sortFunc) {
+			fullData.sort((rowA, rowB) => children[sortField].sortFunc(rowA[sortField], rowB[sortField]));
+			if (sortDirection === -1) {
+				fullData.reverse();
+			}
+		}
+
+		const data = fullData.slice(start, limit ? Math.min(limit, fullData.length) : fullData.length);
 
 		const classNames = ['mdo-table'];
 		const columns = Object.keys(children).map(key => Object.assign(children[key], {key}));
@@ -90,13 +108,6 @@ export default class Table extends React.Component {
 
 		if (className) {
 			classNames.push(className);
-		}
-
-		if (sortField && children[sortField].sortFunc) {
-			data.sort((rowA, rowB) => children[sortField].sortFunc(rowA[sortField], rowB[sortField]));
-			if (sortDirection === -1) {
-				data.reverse();
-			}
 		}
 
 		this.lastData = data;
