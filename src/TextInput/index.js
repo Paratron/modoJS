@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {cloneWithoutProps} from "../utils/object";
-import DynamicHandlerComponent from "../utils/DynamicHandlerComponent";
-
 const propTypes = {
 	value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 	type: PropTypes.string,
@@ -36,124 +33,118 @@ const defaultProps = {
 	autofocus: false,
 };
 
-const removeKeys = Object.keys(propTypes).filter(i => i !== 'type');
+export const cleanProps = (props) => Object.keys(props).reduce((acc, key) => {
+	if(propTypes[key] === undefined || key === 'type'){
+		acc[key] = props[key];
+	}
+	return acc;
+}, {});
 
-export default class TextInput extends DynamicHandlerComponent {
-	constructor(props) {
-		super(props);
+export const handleChange = (props) => (e) => {
+	if (props.enabled && props.onChange) {
+		props.onChange(e.target.value);
+	}
+};
+export const handleFocus = (props, setIsFocused) => () => {
+	setIsFocused(true);
+	if (props.onFocus) {
+		props.onFocus();
+	}
+	if (props.onFocusBlur) {
+		props.onFocusBlur(true);
+	}
+};
+export const handleBlur = (props, setIsFocused) => () => {
+	setIsFocused(false);
+	if (props.onBlur) {
+		props.onBlur();
+	}
+	if (props.onFocusBlur) {
+		props.onFocusBlur();
+	}
+};
+export const handleKeyDown = (props) => (e) => {
+	if (!props.onEnter) {
+		return;
+	}
+	if (e.key === 'Enter') {
+		props.onEnter();
+	}
+};
 
-		this.state = {
-			isFocused: false,
-		};
+const TextInput = (props) => {
+	const [isFocused, setIsFocused] = React.useState(false);
+	const [onceFocused, setOnceFocused] = React.useState(false);
 
-		this.handleChange = (e) => {
-			if (this.props.enabled && this.props.onChange) {
-				this.props.onChange(e.target.value);
-			}
-		};
+	const {
+		autofocus,
+		value,
+		className,
+		enabled,
+		multiline,
+		placeholder,
+	} = props;
 
-		this.handleFocus = () => {
-			this.setState({isFocused: true});
-			if (this.props.onFocus) {
-				this.props.onFocus();
-			}
-			if (this.props.onFocusBlur) {
-				this.props.onFocusBlur(true);
-			}
-		};
+	const ref = React.createRef();
 
-		this.handleBlur = () => {
-			this.setState({isFocused: false});
-			if (this.props.onBlur) {
-				this.props.onBlur();
-			}
-			if (this.props.onFocusBlur) {
-				this.props.onFocusBlur(false);
-			}
-		};
+	React.useEffect(() => {
+		if(autofocus && !onceFocused){
+			ref.current.focus();
+			setOnceFocused(true);
+		}
+	});
 
-		this.handleKeyDown = (e) => {
-			if(!this.props.onEnter){
-				return;
-			}
+	const classNames = ['mdo-textinput'];
 
-			if(e.key === 'Enter'){
-				this.props.onEnter();
-			}
-		};
+	if (!enabled) {
+		classNames.push('mdo-disabled');
 	}
 
-	componentDidMount() {
-		if (this.props.autofocus) {
-			this.ref.focus();
-		}
+	if (value) {
+		classNames.push('mdo-filled');
+	} else {
+		classNames.push('mdo-empty');
 	}
 
-	render() {
-		const classNames = ['mdo-textinput'];
+	if (isFocused) {
+		classNames.push('mdo-focused');
+	}
 
-		const {
-			value,
-			className,
-			enabled,
-			multiline,
-			placeholder,
-		} = this.props;
+	if (className) {
+		classNames.push(className);
+	}
 
-		const {
-			isFocused,
-		} = this.state;
-
-		const cleanedProps = cloneWithoutProps(this.props, removeKeys);
-
-		if (!enabled) {
-			classNames.push('mdo-disabled');
-		}
-
-		if (value) {
-			classNames.push('mdo-filled');
-		} else {
-			classNames.push('mdo-empty');
-		}
-
-		if (isFocused) {
-			classNames.push('mdo-focused');
-		}
-
-		if (className) {
-			classNames.push(className);
-		}
-
-		if (multiline) {
-			return (
-				<textarea
-					{...cleanedProps}
-					className={classNames.join(' ')}
-					onChange={this.handleChange}
-					onFocus={this.handleFocus}
-					onBlur={this.handleBlur}
-					ref={(elm) => this.ref = elm}
-					value={(value === null || value === undefined) ? '' : value}
-					placeholder={placeholder}
-				/>
-			);
-		}
-
+	if (multiline) {
 		return (
-			<input
-				{...cleanedProps}
+			<textarea
+				{...cleanProps(props)}
+				ref={ref}
 				className={classNames.join(' ')}
-				onChange={this.handleChange}
-				onFocus={this.handleFocus}
-				onBlur={this.handleBlur}
-				onKeyDown={this.handleKeyDown}
-				placeholder={placeholder}
-				ref={(elm) => this.ref = elm}
+				onChange={handleChange(props)}
+				onFocus={handleFocus(props, setIsFocused)}
+				onBlur={handleBlur(props, setIsFocused)}
 				value={(value === null || value === undefined) ? '' : value}
+				placeholder={placeholder}
 			/>
 		);
 	}
-}
+
+	return (
+		<input
+			{...cleanProps(props)}
+			ref={ref}
+			className={classNames.join(' ')}
+			onChange={handleChange(props)}
+			onFocus={handleFocus(props, setIsFocused)}
+			onBlur={handleBlur(props, setIsFocused)}
+			onKeyDown={handleKeyDown(props)}
+			placeholder={placeholder}
+			value={(value === null || value === undefined) ? '' : value}
+		/>
+	);
+};
 
 TextInput.propTypes = propTypes;
 TextInput.defaultProps = defaultProps;
+
+export default TextInput;
