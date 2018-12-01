@@ -1,69 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Icon from '../Icon';
-
-const listItemClass = 'mdo-list-item';
-const activeListItemClass = 'mdo-active';
-
-const DefaultListItemComponent = (props) => {
-	const {
-		children,
-		onClick,
-		icon
-	} = props;
-
-	let className = props.className;
-
-	if (icon) {
-		className += ' mdo-has-icon';
-
-		return (
-			<div className={className} onClick={onClick}>
-				<Icon name={icon}/>
-				<span className="content">
-					{children}
-				</span>
-			</div>
-		);
-	}
-
-	return (
-		<div className={className} onClick={onClick}>
-			{children}
-		</div>
-	);
-};
-
-const makeItem =
-	(Tag, key, content, data, value, clickHandler, className) => {
-		const classNames = [listItemClass];
-
-		if (value === key) {
-			classNames.push(activeListItemClass);
-		}
-
-		if (className) {
-			classNames.push(className);
-		}
-
-		return (
-			<Tag
-				{...data}
-				className={classNames.join(' ')}
-				onClick={clickHandler}
-				key={key}
-			>
-				{content}
-			</Tag>
-		);
-	};
+import defaultListItemRender from './DefaultListItem';
 
 const propTypes = {
+	/** An array or object of items to be rendered as list */
 	items: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-	itemComponent: PropTypes.oneOfType([PropTypes.func]),
-	keyPropName: PropTypes.string,
-	propName: PropTypes.string,
+	/** React component to render the list items */
+	itemRender: PropTypes.func,
 	onChange: PropTypes.func,
 	value: PropTypes.string,
 	enabled: PropTypes.bool,
@@ -71,84 +15,57 @@ const propTypes = {
 };
 
 const defaultProps = {
-	items: {},
-	itemComponent: DefaultListItemComponent,
-	keyPropName: 'id',
-	propName: 'title',
+	itemRender: defaultListItemRender,
 	onClick: null,
 	enabled: true,
 	className: null,
 };
 
-export default class List extends React.Component {
-	constructor(props) {
-		super(props);
+const List = (props) => {
+	const {
+		items,
+		itemRender,
+		onChange,
+		value,
+		enabled,
+		className
+	} = props;
 
-		const handlers = {};
+	const classNames = ['mdo-list'];
+	const elements = [];
 
-		this.handleClick = (index) => {
-			if (!this.props.onChange) {
-				return null;
-			}
-
-			if (handlers[index]) {
-				return handlers[index];
-			}
-
-			const clickHandler = () => {
-				if (this.props.items instanceof Array) {
-					this.props.onChange(this.props.items[index][this.props.keyPropName]);
-					return;
-				}
-				this.props.onChange(Object.keys(this.props.items)[index]);
-			};
-
-			handlers[index] = clickHandler;
-
-			return clickHandler;
-		};
+	if(className){
+		classNames.push(className);
 	}
 
-	render() {
-		const classNames = ['mdo-list'];
-
-		const {
-			items,
-			itemComponent,
-			propName,
-			keyPropName,
-			onChange,
-			enabled,
-			className,
-			value,
-			children,
-		} = this.props;
-
-		if (onChange) {
-			classNames.push('mdo-clickable');
-		}
-
-		if (!enabled) {
-			classNames.push('mdo-disabled');
-		}
-
-		if (className) {
-			classNames.push(className);
-		}
-
-		const elements = children
-			? children
-			: items instanceof Array
-				? items.map((d, index) => makeItem(itemComponent, d[keyPropName], d[propName], d, value, this.handleClick(index)))
-				: Object.keys(items).map((key, index) => makeItem(itemComponent, key, items[key][propName], items[key], value, this.handleClick(index)));
-
-		return (
-			<div className={classNames.join(' ')}>
-				{elements}
-			</div>
-		);
+	if(!enabled){
+		classNames.push('mdo-disabled');
 	}
-}
+
+	if (items instanceof Array) {
+		for (let i = 0; i < items.length; i++) {
+			elements.push(itemRender(items[i], i, value, onChange));
+		}
+	} else if (items instanceof Map) {
+		for (let [key, val] of items) {
+			elements.push(itemRender(val, key, value, onChange));
+		}
+	} else if (items instanceof Object) {
+		const keys = Object.keys(items);
+		for (let i = 0; i < keys.length; i++) {
+			const key = keys[i];
+			elements.push(itemRender(items[key], key, value, onChange));
+		}
+	}
+
+	return (
+		<div className={classNames.join(' ')}>
+			{elements}
+		</div>
+	);
+};
 
 List.propTypes = propTypes;
 List.defaultProps = defaultProps;
+
+export default List;
