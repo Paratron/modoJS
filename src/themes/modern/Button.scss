@@ -1,12 +1,12 @@
 @import "vars";
 
-.mdo-buttonarea{
+.mdo-buttonarea {
   margin-top: 20px;
 
-  .mdo-grid-cell:first-child .mdo-button{
+  .mdo-grid-cell:first-child .mdo-button {
     margin-left: -20px;
 
-    &.mdo-minimal{
+    &.mdo-minimal {
       margin-left: -8px;
     }
   }
@@ -25,7 +25,7 @@
   background: #ddd;
   transition: background .3s, box-shadow .3s;
   margin-right: $padding * 2;
-  box-shadow: 0 1px 1px 0 rgba(66,133,244,0),0 1px 3px 1px rgba(66,133,244,0);
+  box-shadow: 0 1px 1px 0 rgba(66, 133, 244, 0), 0 1px 3px 1px rgba(66, 133, 244, 0);
   outline: none;
   vertical-align: bottom;
   white-space: nowrap;
@@ -53,7 +53,7 @@
 
   &:hover, &.mdo-active {
     background: #ccc;
-    box-shadow: 0 1px 1px 0 rgba(66,133,244,0.45),0 1px 3px 1px rgba(66,133,244,0.3);
+    box-shadow: 0 1px 1px 0 rgba(242, 242, 242, 0.45), 0 1px 3px 1px rgba(242, 242, 242, 0.3);
   }
 
   &:active {
@@ -107,7 +107,7 @@
     }
   }
 
-  &.mdo-disabled{
+  &.mdo-disabled {
     background: #ddd;
     pointer-events: none;
     opacity: .8;
@@ -138,5 +138,18 @@
     margin-top: 0;
     margin-right: 0;
     margin-left: $padding * 2;
+  }
+}
+
+.mdo-buttongroup {
+  .mdo-button {
+    margin-right: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+
+    &:last-child{
+      margin-right: $padding * 2;
+      border-radius: 0 3px 3px 0;
+    }
   }
 }

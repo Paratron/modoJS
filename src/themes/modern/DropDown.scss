@@ -1,0 +1,44 @@
+.mdo-dropdown{
+  position: relative;
+
+  .mdo-button{
+    border: none;
+    background: transparent;
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+
+    &:hover{
+      background: transparent;
+    }
+  }
+
+  i{
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  .mdo-card{
+    position: absolute;
+    z-index: 2;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    pointer-events: none;
+    margin: 0;
+    max-height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  &.mdo-open{
+    .mdo-card{
+      opacity: 1;
+      pointer-events: all;
+    }
+  }
+}
