@@ -11,6 +11,7 @@ const propTypes = {
 	enabled: PropTypes.bool,
 	manual: PropTypes.bool,
 	staticLabel: PropTypes.bool,
+	childInLabel: PropTypes.bool,
 };
 
 const defaultProps = {
@@ -18,6 +19,7 @@ const defaultProps = {
 	enabled: true,
 	manual: false,
 	staticLabel: false,
+	childInLabel: false,
 };
 
 export default class FormSlot extends React.Component {
@@ -61,6 +63,7 @@ export default class FormSlot extends React.Component {
 			name,
 			manual,
 			staticLabel,
+			childInLabel,
 			...restProps
 		} = this.props;
 
@@ -81,7 +84,6 @@ export default class FormSlot extends React.Component {
 		}
 
 		return (
-
 			<FormContext.Consumer>
 				{(context) => {
 					if (!context) {
@@ -113,8 +115,9 @@ export default class FormSlot extends React.Component {
 							<div className={classNames.join(' ')}>
 								<label className="mdo-formslot-label">
 									<span className="mdo-formslot-label-inner">{label}</span>
-									{preparedChild}
+									{childInLabel && preparedChild}
 								</label>
+								{!childInLabel && preparedChild}
 							</div>
 						);
 					}
