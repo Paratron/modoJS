@@ -85,7 +85,7 @@ const TextInput = (props) => {
 		placeholder,
 	} = props;
 
-	const ref = React.createRef();
+	const ref = React.useRef();
 
 	React.useEffect(() => {
 		if(autofocus && !onceFocused){
