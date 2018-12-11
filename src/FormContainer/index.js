@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
@@ -34,6 +34,7 @@ const FormContainer = (props) => {
 		onChange,
 	} = props;
 
+	const context = useContext(FormContext);
 	const [valueBuffer, setValueBuffer] = useState(initValue);
 
 	const classNames = ['mdo-form-container'];
@@ -48,41 +49,35 @@ const FormContainer = (props) => {
 
 	const handleSubmit = () => props.onSubmit(valueBuffer);
 
+	const subContext = context
+		? {
+			value: context.value ? context.value[name] : {},
+			changeHandler: (key) => (value) => {
+				const newValue = Object.assign({}, context.value ? context.value[name] : {}, {[key]: value});
+				context.changeHandler(name)(newValue);
+			}
+		}
+		: initValue
+			? {
+				value: valueBuffer,
+				changeHandler: (key) => (value) => {
+					const newValue = Object.assign({}, valueBuffer, {[key]: value});
+					setValueBuffer(newValue);
+				}
+			}
+			: {
+				value,
+				changeHandler: (key) => (val) => {
+					const newValue = Object.assign({}, value, {[key]: val});
+					onChange(newValue);
+				}
+			};
+
 	return (
 		<div className={classNames.join(' ')}>
-			<FormContext.Consumer>
-				{(context) => {
-					const subContext = context
-						? {
-							value: context.value ? context.value[name] : {},
-							changeHandler: (key) => (value) => {
-								const newValue = Object.assign({}, context.value ? context.value[name] : {}, {[key]: value});
-								context.changeHandler(name)(newValue);
-							}
-						}
-						: initValue
-							? {
-								value: valueBuffer,
-								changeHandler: (key) => (value) => {
-									const newValue = Object.assign({}, valueBuffer, {[key]: value});
-									setValueBuffer(newValue);
-								}
-							}
-							: {
-								value,
-								changeHandler: (key) => (val) => {
-									const newValue = Object.assign({}, value, {[key]: val});
-									onChange(newValue);
-								}
-							};
-
-					return (
-						<FormContext.Provider value={subContext}>
-							{onSubmit ? children({doSubmit: handleSubmit}) : children}
-						</FormContext.Provider>
-					);
-				}}
-			</FormContext.Consumer>
+			<FormContext.Provider value={subContext}>
+				{onSubmit ? children({doSubmit: handleSubmit}) : children}
+			</FormContext.Provider>
 		</div>
 	);
 };

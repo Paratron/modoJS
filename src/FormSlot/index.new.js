@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
 
 import FormContext from '../FormContainer';
@@ -20,6 +20,7 @@ const prepareChild = () => {
 };
 
 const FormSlot = (props) => {
+	const context = useContext(FormContext);
 	const classNames = ['mdo-formslot'];
 
 	const {
@@ -32,20 +33,23 @@ const FormSlot = (props) => {
 		...restProps
 	} = this.props;
 
-	return (
-		<FormContext.Consumer>
-			{(context) => {
-				if (!context) {
-					throw new Error('FormSlot components can only be placed somewhere inside a FormContainer component.');
-				}
-				
-				if(manual){
-					return children(context.value, context.changeHandler());
-				}
+	if (!context) {
+		throw new Error('FormSlot components can only be placed somewhere inside a FormContainer component.');
+	}
 
-				const preparedChild = prepareChild(children);
-			}}
-		</FormContext.Consumer>
+	if (manual) {
+		return children(context.value, context.changeHandler());
+	}
+
+	const preparedChild = prepareChild(children);
+
+	return (
+		<div className={classNames.join(' ')}>
+			<label className="mdo-formslot-label">
+				<span className="mdo-formslot-label-inner">{label}</span>
+				{preparedChild}
+			</label>
+		</div>
 	);
 };
 
