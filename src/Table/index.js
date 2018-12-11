@@ -11,6 +11,8 @@ const propTypes = {
 	defaultCellComponent: PropTypes.any,
 	start: PropTypes.number,
 	limit: PropTypes.number,
+	defaultSortColumn: PropTypes.string,
+	defaultSortOrder: PropTypes.string,
 };
 
 const nullFunc = () => {
@@ -25,6 +27,8 @@ const defaultProps = {
 	data: [],
 	start: 0,
 	limit: 0,
+	defaultSortColumn: null,
+	defaultSortOrder: 'DESC',
 	defaultCellComponent: ({row, columnKey}) => <span>{row[columnKey]}</span>
 };
 
@@ -33,13 +37,13 @@ export default class Table extends React.Component {
 		super(props);
 
 		const c = props.children;
-		const firstSorter = Object.keys(c).reduce((acc, key) => acc ? acc : c[key].sortFunc ? key : null, null);
+		const firstSorter = props.defaultSortColumn || Object.keys(c).reduce((acc, key) => acc ? acc : c[key].sortFunc ? key : null, null);
 		this.lastData = props.data;
 
 		this.sortCallbacks = {};
 		this.state = {
 			sortField: firstSorter,
-			sortDirection: 1
+			sortDirection: props.defaultSortOrder === 'DESC' ? -1 : 1,
 		};
 
 		this.updateSort = (key) => {
@@ -135,37 +139,48 @@ export default class Table extends React.Component {
 				)}
 				<tbody>{data.map((row, rowIndex) => {
 					const rowKey = row.id ? row.id : `r${rowIndex}`;
+					const rowClasses = ['mdo-table-row'];
+
+					const cells = columns.map((c, ci) => {
+
+						if (c.precalc) {
+							c.precalc({row, rowIndex, rowClasses});
+						}
+
+						return (
+
+							<td className={`mdo-table-cell mdo-column-${c.key}`} key={c.key}>
+								{c.component
+									? <c.component
+										row={row}
+										rowIndex={rowIndex}
+										columnIndex={ci}
+										columnKey={c.key}
+									>
+										{row[c.key]}
+									</c.component>
+									: <DefaultCellComponent
+										row={row}
+										rowIndex={rowIndex}
+										columnIndex={ci}
+										columnKey={c.key}
+									>
+										{row[c.key]}
+									</DefaultCellComponent>
+								}
+							</td>
+						);
+					});
 
 					return (
 						<tr
-							className={"mdo-table-row"}
+							className={rowClasses.join(' ')}
 							key={rowKey}
 							data-index={rowIndex}
 							onClick={this.handleRowClick}
 						>
 							{
-								columns.map((c, ci) => (
-									<td className={`mdo-table-cell mdo-column-${c.key}`} key={c.key}>
-										{c.component
-											? <c.component
-												row={row}
-												rowIndex={rowIndex}
-												columnIndex={ci}
-												columnKey={c.key}
-											>
-												{row[c.key]}
-											</c.component>
-											: <DefaultCellComponent
-												row={row}
-												rowIndex={rowIndex}
-												columnIndex={ci}
-												columnKey={c.key}
-											>
-												{row[c.key]}
-											</DefaultCellComponent>
-										}
-									</td>
-								))
+								cells
 							}
 						</tr>
 					);
