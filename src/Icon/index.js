@@ -11,14 +11,14 @@ const defaultProps = {
 
 let initialized = false;
 
-function init(){
-	if(initialized){
+function init() {
+	if (initialized) {
 		return;
 	}
 
 	initialized = true;
 
-	if(Icon.useHostedIcons){
+	if (Icon.useHostedIcons) {
 		return;
 	}
 
@@ -29,21 +29,24 @@ function init(){
 	document.head.appendChild(l);
 }
 
-export default class Icon extends React.Component {
-	constructor(props) {
-		super(props);
-		init();
+const classNames = ['mdo-icon', 'material-icons'];
+
+const Icon = ({name, className}) => {
+	const myClassNames = classNames.slice();
+
+	init();
+
+	if(className){
+		myClassNames.push(className);
 	}
 
-	render() {
-		const classNames = ['mdo-icon', 'material-icons'];
-
-		return (
-			<i className={classNames.join(' ')}>{this.props.name.replace(/ /g, '_').toString()}</i>
-		);
-	}
-}
+	return (
+		<i className={myClassNames.join(' ')}>{name.replace(/ /g, '_').toString()}</i>
+	);
+};
 
 Icon.propTypes = propTypes;
 Icon.defaultProps = defaultProps;
 Icon.useHostedIcons = false;
+
+export default Icon;
