@@ -18,6 +18,10 @@ import Checkbox from './Checkbox';
 import RadioButton from './RadioButton';
 import RadioSelector from './RadioSelector';
 import FileUploader from './FileUploader';
+import DropDown from './DropDown';
+import Calendar from './Calendar';
+import MonthSelector from './MonthSelector';
+import Index from './DatePicker';
 // import prompts from './utils/prompts';
 
 import {
@@ -59,6 +63,10 @@ export {
 	Checkbox,
 	RadioSelector,
 	RadioButton,
-	FileUploader
+	FileUploader,
+	DropDown,
+	Calendar,
+	MonthSelector,
+	Index
 	// prompts
 };
