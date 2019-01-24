@@ -8,6 +8,8 @@ const propTypes = {
 	value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 	onChange: PropTypes.func,
 	enabled: PropTypes.bool,
+	/** Either an array of indexes, or an array of object keys. */
+	disabledItems: PropTypes.array,
 };
 
 const defaultProps = {
@@ -16,6 +18,7 @@ const defaultProps = {
 	enabled: true,
 	onChange: () => {
 	},
+	disabledItems: []
 };
 
 export default class RadioSelector extends React.Component {
@@ -56,12 +59,16 @@ export default class RadioSelector extends React.Component {
 			items,
 			className,
 			value,
+			disabledItems,
 		} = this.props;
 
 		const isArr = items instanceof Array;
 		const itemLabels = isArr ? items : Object.values(items);
 		const itemKeys = isArr ? items.map((v, i) => i) : Object.keys(items);
 		const activeIndex = isArr ? value : itemKeys.indexOf(value);
+		const disabledIndexes = isArr
+			? disabledItems
+			: Object.keys(items).map((key, index) => disabledItems.indexOf(key) !== -1 ? index : -1).filter(i => i !== -1);
 
 		if (className) {
 			classNames.push(className);
@@ -73,6 +80,7 @@ export default class RadioSelector extends React.Component {
 					key={index}
 					label={label}
 					checked={index === activeIndex}
+					enabled={disabledIndexes.indexOf(index) === -1}
 					onClick={this.handleClick(index)}
 				/>)}
 			</div>
