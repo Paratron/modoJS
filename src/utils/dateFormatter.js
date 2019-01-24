@@ -1,4 +1,4 @@
-export const CONSTANTS = {
+export let LOCALIZATION = {
 	MONTH_NAMES: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
 	MONTH_NAMES_SHORT: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
 	DAY_NAMES: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
@@ -9,6 +9,7 @@ export const CONSTANTS = {
 	LAST: 'last %v',
 	FUZZY_SECONDS: 'about a minute ago',
 	NEVER: 'never',
+	SUNDAY_FIRST_DAY_OF_THE_WEEK: true,
 
 	REL_UNITS: ['seconds', 'minutes', 'hours', 'days', 'weeks', 'months', 'years'],
 	REL_PAST: '%v %u ago',
@@ -17,13 +18,17 @@ export const CONSTANTS = {
 	DEFAULT_FORMAT: 'F jS, Y',
 };
 
+export function setLocalization(newLocalization){
+	LOCALIZATION = newLocalization;
+};
+
 const replacements = {
 	'd': (inDate) => inDate.getDate() < 10 ? '0' + inDate.getDate() : inDate.getDate(),
-	'D': (inDate) => CONSTANTS.DAY_NAMES_SHORT[(inDate.getDay() === 0) ? 6 : inDate.getDay() - 1],
+	'D': (inDate) => LOCALIZATION.DAY_NAMES_SHORT[(inDate.getDay() === 0) ? 6 : inDate.getDay() - 1],
 	'j': (inDate) => inDate.getDate(),
-	'l': (inDate) => CONSTANTS.DAY_NAMES[(inDate.getDay() === 0) ? 6 : inDate.getDay() - 1],
+	'l': (inDate) => LOCALIZATION.DAY_NAMES[(inDate.getDay() === 0) ? 6 : inDate.getDay() - 1],
 	'N': (inDate) => inDate.getDay() === 0 ? 7 : inDate.getDay(),
-	'S': (inDate) => inDate.getDate() < 4 ? CONSTANTS.SUFFIX[inDate.getDate() - 1] : CONSTANTS.SUFFIX[3],
+	'S': (inDate) => inDate.getDate() < 4 ? LOCALIZATION.SUFFIX[inDate.getDate() - 1] : LOCALIZATION.SUFFIX[3],
 	'w': (inDate) => inDate.getDate(),
 	'z': (inDate) => {
 		let day = 0;
@@ -55,9 +60,9 @@ const replacements = {
 		}
 		return week;
 	},
-	'F': (inDate) => CONSTANTS.MONTH_NAMES[inDate.getMonth()],
+	'F': (inDate) => LOCALIZATION.MONTH_NAMES[inDate.getMonth()],
 	'm': (inDate) => inDate.getMonth() < 9 ? '0' + (inDate.getMonth() + 1) : inDate.getMonth() + 1,
-	'M': (inDate) => CONSTANTS.MONTH_NAMES_SHORT[inDate.getMonth()],
+	'M': (inDate) => LOCALIZATION.MONTH_NAMES_SHORT[inDate.getMonth()],
 	'n': (inDate) => inDate.getMonth() + 1,
 	't': (inDate) => {
 		const dte = new Date();
