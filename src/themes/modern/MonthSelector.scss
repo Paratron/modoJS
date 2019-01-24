@@ -1,0 +1,17 @@
+.mdo-monthselector{
+  display: block;
+
+  .mdo-button{
+    width: 32px;
+    margin-right: 8px;
+    margin-top: 0;
+
+    &:nth-child(2){
+      width: calc(100% - 64px - 16px);
+    }
+
+    &:last-child{
+      margin: 0;
+    }
+  }
+}

@@ -1,0 +1,28 @@
+.mdo-calendar {
+  .mdo-card{
+    margin-bottom: 50px;
+  }
+
+  .mdo-header, .mdo-calendar-row {
+    white-space: nowrap;
+  }
+
+  .mdo-day {
+    display: inline-block;
+    width: calc(100% / 7);
+    text-align: center;
+    margin: 0;
+    border: transparent solid 1px;
+    overflow: hidden;
+
+    &.mdo-otherMonth {
+      opacity: .4;
+      pointer-events: none;
+      background: transparent;
+    }
+
+    &.mdo-today{
+      background: #eee;
+    }
+  }
+}

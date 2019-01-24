@@ -1,0 +1,42 @@
+.mdo-datePicker {
+  position: relative;
+
+  .mdo-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    z-index: 2;
+    opacity: 0;
+    pointer-events: none;
+    transition: opactiy .3s;
+  }
+
+  &.mdo-open{
+    .mdo-card{
+      opacity: 1;
+      pointer-events: all;
+    }
+  }
+
+  .mdo-textinput {
+    text-align: center;
+  }
+
+  .mdo-monthButtons {
+    .mdo-button {
+      margin-right: 8px;
+      width: 32px;
+      margin-top: 0;
+
+      &:nth-child(2) {
+        width: calc(100% - 64px - 16px);
+      }
+
+      &:last-child{
+        margin-right: 0;
+      }
+    }
+  }
+}

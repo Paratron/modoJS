@@ -11,6 +11,10 @@
   position: relative;
   display: inline-block;
 
+  &.mdo-disabled{
+    opacity: 0.5;
+  }
+
   &:before {
     content: "";
     width: 18px;
