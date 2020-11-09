@@ -1,9 +1,5 @@
 import React from 'react';
 
-const ARRAY = 0;
-const MAP = 1;
-const OBJECT = 2;
-
 export default (rowValue, rowIndex, listValue, listOnChange) => {
 	const content = rowValue instanceof Object
 		? rowValue.title || rowValue.label || rowValue.name

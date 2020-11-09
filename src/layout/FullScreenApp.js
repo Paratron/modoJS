@@ -1,5 +1,7 @@
 import React, {useEffect} from 'react';
 
+window.reactM = React;
+
 const FullScreenApp = ({children}) => {
 	useEffect(() => {
 		document.body.parentElement.classList.add('mdo-fullscreen');

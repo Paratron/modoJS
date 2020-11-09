@@ -1,14 +1,18 @@
 {
   "name": "modojs",
-  "version": "2.0.0",
+  "version": "2.0.6",
   "description": "Component collection for React applications.",
   "main": "dist/index.js",
+  "files": [
+    "dist/**"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm run build:js && npm run build:style && robocopy ./src ./dist package.json || echo 'done'",
     "build:js": "babel ./src --out-dir ./dist -s inline",
     "watch": "babel ./src/**/* --watch --out-dir ./dist -s inline",
-    "build:style": "node-sass src/modo.scss -o dist && node-sass src/themes/modern.scss -o dist/themes"
+    "prepublishOnly": "npm run build",
+    "build:style": "sass src/modo.scss dist/modo.css && sass src/themes/modern.scss dist/themes/modern.css"
   },
   "repository": {
     "type": "git",
@@ -20,17 +24,19 @@
     "url": "https://github.com/Paratron/modoJS/issues"
   },
   "homepage": "https://github.com/Paratron/modoJS#readme",
-  "dependencies": {
-    "prop-types": "15.6.2",
-    "react": "16.7.0-alpha.0"
-  },
   "devDependencies": {
     "@babel/cli": "7.0.0",
     "@babel/core": "7.0.0",
     "@babel/plugin-transform-react-jsx": "7.0.0",
     "@babel/preset-env": "7.0.0",
     "@babel/preset-react": "7.0.0",
+    "enzyme": "3.7.0",
+    "enzyme-adapter-react-16": "1.7.0",
     "foundation-sites": "6.4.3",
-    "node-sass": "4.9.4"
+    "jest": "23.6.0",
+    "prop-types": "15.6.2",
+    "react": "16.8.0",
+    "react-dom": "16.8.0",
+    "sass": "1.29.0"
   }
 }

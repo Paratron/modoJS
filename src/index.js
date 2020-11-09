@@ -21,7 +21,7 @@ import FileUploader from './FileUploader';
 import DropDown from './DropDown';
 import Calendar from './Calendar';
 import MonthSelector from './MonthSelector';
-import Index from './DatePicker';
+import DatePicker from './DatePicker';
 // import prompts from './utils/prompts';
 
 import {
@@ -67,6 +67,6 @@ export {
 	DropDown,
 	Calendar,
 	MonthSelector,
-	Index
+	DatePicker
 	// prompts
 };

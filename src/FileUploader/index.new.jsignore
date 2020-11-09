@@ -1,0 +1,114 @@
+import React, {useState} from 'react';
+import PropTypes from 'prop-types';
+
+import Button from '../Button';
+import useFileUploader, {UPLOAD_STATUS} from './hook';
+
+const propTypes = {};
+
+const statusClasses = ['', 'mdo-uploading', 'mdo-upload-done', 'mdo-upload-error'];
+
+const FileUploader = (props) => {
+	const uploader = useFileUploader();
+	const classNames = ['mdo-fileUploader'];
+
+	classNames.push(statusClasses[uploader.status]);
+	const showFileDialog = uploader.prepareFileDialog(props);
+
+	const currentFile = uploader.currentFile;
+
+	uploader.onFileSelect();
+
+	return (
+		<div className={classNames.join(' ')}>
+			<Button
+				type={Button.TYPES.PRIMARY}
+				icon="cloud_upload"
+				onClick={showFileDialog}
+				enabled={uploader.status === UPLOAD_STATUS.WAITING || uploader.status === UPLOAD_STATUS.FINISHED}
+			>
+				Datei auswählen
+			</Button>
+			{uploader.currentFile && (
+				<React.Fragment>
+					<span className="filename">{uploader.currentFile.file.name}</span>
+					<span className="progress">{uploader.currentFile.percent}%</span>
+				</React.Fragment>
+			)}
+		</div>
+	);
+};
+
+
+/*const FileUploader = (props) => {
+	const {
+		value,
+		onChange,
+		filename,
+		targetURL = '',
+		accept,
+		onBeforeUpload = emptyCB,
+		onAfterUpload = emptyCB
+	} = props;
+
+	const classNames = ['mdo-fileUploader'];
+	const [filenameBuffer, setFilenameBuffer] = useState(filename);
+	const [uploadStatus, setUploadStatus] = useState(0);
+	const [progress, setProgress] = useState(0);
+
+	classNames.push(statusClasses[uploadStatus]);
+
+	const handleFileSelect = (e) => {
+		const files = e.target.files;
+
+		if (files.length) {
+			const file = files[0];
+			const formData = new FormData();
+			formData.append('file', file, file.name);
+
+			setFilenameBuffer(file.name);
+			setProgress(0);
+
+			const xhr = new XMLHttpRequest();
+			xhr.upload.addEventListener('progress', (e) => {
+				setProgress(Math.round((e.loaded / e.total) * 100));
+			});
+
+			xhr.addEventListener('load', () => {
+				setUploadStatus(2);
+				setTimeout(() => setUploadStatus(0), 2000);
+				onAfterUpload(xhr.responseText);
+			});
+
+			xhr.addEventListener('error', (e) => {
+				console.log(e);
+				setUploadStatus(3);
+			});
+
+			onBeforeUpload();
+
+			xhr.open('POST', targetURL, true);
+			xhr.send(formData);
+			setUploadStatus(1);
+		}
+	};
+
+	return (
+		<div className={classNames.join(' ')}>
+			<Button
+				type={Button.TYPES.PRIMARY}
+				icon="cloud_upload"
+				enabled={uploadStatus === 0 || uploadStatus === 2}
+			>
+				Datei auswählen
+			</Button>
+			<span className="filename">{filenameBuffer}</span>
+			<span className="progress">{progress}%</span>
+			<input accept={accept} type="file" onChange={handleFileSelect}/>
+		</div>
+	);
+};*/
+
+FileUploader.propTypes = propTypes;
+
+export default FileUploader;

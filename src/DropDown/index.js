@@ -32,8 +32,6 @@ export const handleButtonClick = (dropdownOpen, setDropdownOpen) => () => {
 	setDropdownOpen(!dropdownOpen);
 };
 
-let previousOnChange;
-
 const DropDown = (props) => {
 	const [dropDownOpen, setDropDownOpen] = React.useState(false);
 
@@ -45,13 +43,6 @@ const DropDown = (props) => {
 		renderButtonLabel,
 		enabled
 	} = props;
-
-	const mHandleListClick = React.useCallback((item) => {
-		if(onChange){
-			onChange(item)
-		}
-		setDropDownOpen(false);
-	}, [onChange]);
 
 	const classNames = ['mdo-dropdown'];
 

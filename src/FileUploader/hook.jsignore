@@ -1,0 +1,191 @@
+import React from 'react';
+
+export const UPLOAD_STATUS = {
+	/**
+	 * No file has been selected so far.
+	 */
+	WAITING: 0,
+	/**
+	 * File selected, upload can be started.
+	 * `totalBytes` and `selectedFile` will be set.
+	 */
+	READY: 1,
+	/**
+	 * Upload active.
+	 * `uploadedBytes`, `uploadedPercent` and `bytesPerSecond` will be set.
+	 */
+	ACTIVE: 2,
+	/**
+	 * Upload has failed.
+	 * `uploadError` has been set.
+	 */
+	FAILED: 3,
+	/**
+	 * Upload successful.
+	 * `responseText` has been set.
+	 */
+	FINISHED: 4
+};
+
+const filePicker = document.createElement('input');
+filePicker.type = 'file';
+filePicker.style.position = 'absolute';
+filePicker.style.bottom = '100%';
+filePicker.style.opacity = 0;
+filePicker.style.pointerEvents = 'none';
+document.body.appendChild(filePicker);
+
+const performUpload = (file, targetUrl) => new Promise((resolve, reject) => {
+	console.log('jay');
+
+	setTimeout(resolve, 1000);
+});
+
+/**
+ * Creates an uploader interface.
+ * @param {boolean} [autostart=true] Should an upload be automatically started after file selection?
+ * @param {string} [targetURL] URL to where the files should be POSTed. Leave empty to use current.
+ * @param {boolean} [parallel=false] Should the uploader do multiple file uploads in series, or in parallel?
+ * @returns {{useFileList: useFileList, prepareFileDialog: (function({accept?: string, multiple?: *}=): Function), startUpload: startUpload, onFileSelect: onFileSelect, onBeforeUpload: onBeforeUpload, onAfterUpload: onAfterUpload, status, error, totalPercent, totalBytes, bytesPerSecond, remainingTime, selectedFiles, currentFile}}
+ */
+export default function useFileUploader({autostart = true, targetURL = '', parallel = false} = {}) {
+	const [status, setStatus] = React.useState(0);
+	const [error, setError] = React.useState(null);
+	const [totalPercent, setTotalPercent] = React.useState(0);
+	const [totalBytes, setTotalBytes] = React.useState(0);
+	const [bytesPerSecond, setBytesPerSecond] = React.useState(0);
+	const [remainingTime, setRemainingTime] = React.useState(0);
+	const [selectedFiles, setSelectedFiles] = React.useState(null);
+	const [currentFile, setCurrentFile] = React.useState(null);
+	const [beforeUploadCallback, setBeforeUploadCallback] = React.useState(null);
+	const [afterUploadCallback, setAfterUploadCallback] = React.useState(null);
+
+	/**
+	 * Will open a native file select dialog from the operating system.
+	 * Will only work, if called in response to a click event.
+	 * @param {object} [options]
+	 * @param {string} [options.accept] Define which file types should be selectable. Follows [the MDN spec](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept)
+	 * @param {boolean} [options.multi=false] Should multiple files be allowed?
+	 * @returns {function} Returns a callback function that can be attached to a component.
+	 */
+	const prepareFileDialog = ({accept, multiple = false} = {}) => () => {
+		filePicker.accept = accept;
+		filePicker.multiple = multiple;
+		filePicker.onChange = (e) => {
+			useFileList(e.files);
+			if (autostart) {
+				startUpload();
+			}
+		};
+		filePicker.click();
+	};
+
+	/**
+	 * Can only be called when a `FileList` has been submitted through `useFileList()`,
+	 * or manually by calling `prepareFileDialog()`s result function.
+	 */
+	const startUpload = async () => {
+		setStatus(2);
+
+		beforeUploadCallback && beforeUploadCallback();
+
+		if (parallel) {
+			for (let i = 0; i < selectedFiles.length; i++) {
+				performUpload(selectedFiles[i], targetURL);
+			}
+		} else {
+			for (let i = 0; i < selectedFiles.length; i++) {
+				yield performUpload(selectedFiles[i], targetURL);
+			}
+		}
+	};
+
+	/**
+	 * Will cancel a running upload and return to
+	 */
+	const cancelUpload = () => {
+	};
+
+	/**
+	 * Pass a file list you obtained from somewhere here, to upload
+	 * them.
+	 * @param {FileList} fileList
+	 */
+	const useFileList = (fileList) => {
+		setSelectedFiles(fileList);
+		setStatus(1);
+	};
+
+	/**
+	 * @callback fileSelectCallback
+	 * @param {FileList} files
+	 */
+
+	/**
+	 * Stores a callback that will be called, when the upload is about
+	 * to start. The file list will be sent to the callback.
+	 * @param callback
+	 */
+	const onBeforeUpload = (callback) => setBeforeUploadCallback(callback);
+
+	/**
+	 * Stores a callback that will be called, when the upload has finished.
+	 * The response text of the server will be sent to the callback.
+	 * @param callback
+	 */
+	const onAfterUpload = (callback) => setAfterUploadCallback(callback);
+
+	return {
+		useFileList,
+		prepareFileDialog,
+		startUpload,
+		onFileSelect,
+		onBeforeUpload,
+		onAfterUpload,
+		/**
+		 * Is set to a number between 0 and 4, representing the current state of the upoader.
+		 * Import and check against `UPLOAD_STATUS`.
+		 * @type {number}
+		 */
+		status,
+		/**
+		 * Contains the error object in case of failure, otherwise `null`.
+		 * @type {Error|null}
+		 */
+		error,
+		/**
+		 * Contains the total uploaded percentage of all files.
+		 * @type {Number}
+		 */
+		totalPercent,
+		/**
+		 * Contains the total combined size of all selected files.
+		 * @type {Number}
+		 */
+		totalBytes,
+		/**
+		 * Average upload speed.
+		 * @type {Number}
+		 */
+		bytesPerSecond,
+		/**
+		 * Estimated remaining time for all files to finish uploading, in seconds.
+		 * @type {Number}
+		 */
+		remainingTime,
+		/**
+		 * Reference to the list of all currently used files.
+		 * @type {FileList|null}
+		 */
+		selectedFiles,
+		/**
+		 * Reference to the currently uploading file.
+		 * @type {object|null}
+		 * @property {File} file Reference to the file object
+		 * @property {Number} percent How much percent of the file have been uploaded.
+		 * @property {Number} uploadedBytes How many bytes have been uploaded.
+		 * @property {Number} remainingTime How many time is estimated to remain until finish.
+		 */
+		currentFile,
+	};
+}

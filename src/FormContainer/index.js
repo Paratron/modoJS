@@ -53,8 +53,8 @@ const FormContainer = (props) => {
 		? {
 			value: context.value ? context.value[name] : {},
 			changeHandler: (key) => (value) => {
-			    if(value.currentTarget){
-			        value = value.currentTarget.value;
+			    if(value.target){
+			        value = value.target.value;
                 }
 				const newValue = Object.assign({}, context.value ? context.value[name] : {}, {[key]: value});
 				context.changeHandler(name)(newValue);
@@ -64,6 +64,9 @@ const FormContainer = (props) => {
 			? {
 				value: valueBuffer,
 				changeHandler: (key) => (value) => {
+                    if(value.target){
+                        value = value.target.value;
+                    }
 					const newValue = Object.assign({}, valueBuffer, {[key]: value});
 					setValueBuffer(newValue);
 				}
@@ -71,6 +74,9 @@ const FormContainer = (props) => {
 			: {
 				value,
 				changeHandler: (key) => (val) => {
+                    if(val.target){
+                        val = val.target.value;
+                    }
 					const newValue = Object.assign({}, value, {[key]: val});
 					onChange(newValue);
 				}

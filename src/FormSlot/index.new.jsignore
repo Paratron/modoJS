@@ -29,7 +29,7 @@ const FormSlot = (props) => {
 		enabled,
 		label,
 		name,
-		manual
+		manual,
 		...restProps
 	} = this.props;
 
