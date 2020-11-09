@@ -53,6 +53,9 @@ const FormContainer = (props) => {
 		? {
 			value: context.value ? context.value[name] : {},
 			changeHandler: (key) => (value) => {
+			    if(value.currentTarget){
+			        value = value.currentTarget.value;
+                }
 				const newValue = Object.assign({}, context.value ? context.value[name] : {}, {[key]: value});
 				context.changeHandler(name)(newValue);
 			}
